@@ -9,7 +9,7 @@
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="50dp"
-        android:background="#00"
+        android:background="#009bd8cc"
         android:gravity="center"
         android:layout_weight="1"
         app:srcCompat="@drawable/star" />
