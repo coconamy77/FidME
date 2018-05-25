@@ -18,23 +18,24 @@
         <activity android:name=".MainActivity"/>
 
         <activity android:name=".HomeActivity" />
-        <activity android:name=".MapActivity" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".MapActivity" />
 
         <activity android:name=".BookMarkActivity"></activity>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyBY8GfkPWvoyPps_DVseE0WdJkzh3UTWGw" />
-        
+
         <activity android:name=".HistoryActivity" />
-        <activity android:name=".FindActivity" />
+        <activity android:name=".FindActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".RecommandActivity" />
+
         <activity android:name=".MemoActivity"></activity>
 
     </application>
