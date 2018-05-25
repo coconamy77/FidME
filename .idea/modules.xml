@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/FID_ME.iml" filepath="$PROJECT_DIR$/FID_ME.iml" />
+      <module fileurl="file://$PROJECT_DIR$/FIDME.iml" filepath="$PROJECT_DIR$/FIDME.iml" />
+      <module fileurl="file://C:\Android\FIDME\FID_ME.iml" filepath="C:\Android\FIDME\FID_ME.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
