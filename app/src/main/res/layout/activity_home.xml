@@ -8,7 +8,7 @@
 
     <TextView
             android:id="@+id/textView2"
-            android:text="당신의 취향을 딱! 알겠군요~ 당신에게 딱 맞는 식당은?"
+            android:text="오늘의 식당!\n오늘은 여기서 한끼 어떠세요?"
             android:layout_width="305dp"
             android:layout_height="74dp"
             android:textSize="25sp"
