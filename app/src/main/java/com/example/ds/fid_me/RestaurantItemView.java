@@ -17,7 +17,8 @@ import java.util.jar.Attributes;
 public class RestaurantItemView extends LinearLayout {
 
     TextView restName;
-    ImageView restStar;
+    ImageView restStar,memoBtn, mapBtn;
+
 
     public RestaurantItemView(Context context) {
         super(context);
@@ -36,7 +37,11 @@ public class RestaurantItemView extends LinearLayout {
 
         restName = (TextView) findViewById(R.id.restName);
         restStar = (ImageView) findViewById(R.id.restStar);
+        memoBtn = (ImageView)findViewById(R.id.memoBtn);
+        mapBtn = (ImageView)findViewById(R.id.mapBtn);
 
+        memoBtn.setImageResource(R.drawable.memo);
+        mapBtn.setImageResource(R.drawable.map);
     }
 
     public void setName(String name){
@@ -44,7 +49,9 @@ public class RestaurantItemView extends LinearLayout {
     }
 
     public void setRestStar(boolean star){
-        if (star) restStar.setImageResource(R.drawable.star_black);
+        if (!star) restStar.setImageResource(R.drawable.star_black);
         else restStar.setImageResource(R.drawable.star);
     }
+
+
 }
