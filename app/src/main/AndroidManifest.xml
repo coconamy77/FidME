@@ -31,10 +31,7 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyBY8GfkPWvoyPps_DVseE0WdJkzh3UTWGw" />
-
-        <activity android:name=".HomeActivity" />
-        <activity android:name=".MapActivity" />
-        <activity android:name=".BookMarkActivity" />
+        
         <activity android:name=".HistoryActivity" />
         <activity android:name=".FindActivity" />
         <activity android:name=".RecommandActivity" />
