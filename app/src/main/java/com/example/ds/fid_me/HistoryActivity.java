@@ -25,8 +25,8 @@ public class HistoryActivity extends AppCompatActivity {
 
         adapter = new RestaurantAdapter();
 
-        adapter.addItem(new RestaurantItem("누들아한타이",true,true,"대한민국 쌍문동 139"));
-        adapter.addItem(new RestaurantItem("일락",false,false, "대한민국 쌍문동 138"));
+        adapter.addItem(new RestaurantItem("누들아한타이",true,true,"대한민국 서울특별시 쌍문동 139"));
+        adapter.addItem(new RestaurantItem("일락",false,false, "대한민국 서울특별시 쌍문동 138"));
 
         listView.setAdapter(adapter);
 
