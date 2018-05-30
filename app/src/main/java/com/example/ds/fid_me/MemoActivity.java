@@ -13,7 +13,6 @@ import android.widget.ListView;
 
 public class MemoActivity extends AppCompatActivity {
 
-    public static final String TAG = "MemoActivity";
     MemoListAdapter mMemoListAdapter;
     ListView mMemoListView;
     int mMemoCount = 0;
@@ -40,7 +39,7 @@ public class MemoActivity extends AppCompatActivity {
         newMemoBtn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d(TAG,"clicked");
+                Log.d("MemoActivity","clicked");
             }
         });
         
