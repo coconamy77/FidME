@@ -63,18 +63,18 @@ public class MemoListAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         MemoListItemView itemView;
-        if (convertView == null) {
+       // if (convertView == null) {
             itemView = new MemoListItemView(mContext);
-        } else {
-            itemView = (MemoListItemView)convertView;
-        }
-
+       // } else {
+       //     itemView = (MemoListItemView)convertView;
+      //  }
+        MemoListItem item = mItems.get(position);
         // set current item data
-        itemView.setContents(0, ((String) mItems.get(position).getData(0)));
-        itemView.setContents(1, ((String) mItems.get(position).getData(1)));
-        itemView.setContents(2, ((String) mItems.get(position).getData(2)));
-        itemView.setContents(3, ((String) mItems.get(position).getData(4)));
-        itemView.setContents(5, ((String) mItems.get(position).getData(5)));
+        itemView.setContents(0, (String)item.getData(0));
+        itemView.setContents(1, (String)item.getData(1));
+        itemView.setContents(2, (String)item.getData(2));
+        itemView.setContents(3, (String)item.getData(4));
+        itemView.setContents(5,(String)item.getData(5));
 
 
         return itemView;

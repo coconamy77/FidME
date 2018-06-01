@@ -1,5 +1,7 @@
 package com.example.ds.fid_me;
 
+import android.app.Activity;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -12,7 +14,7 @@ import java.util.ArrayList;
 
 public class HistoryActivity extends AppCompatActivity {
 
-
+    SQLiteDatabase db;
     ListView listView;
     RestaurantAdapter adapter;
 
@@ -21,12 +23,13 @@ public class HistoryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history);
 
+        createDatabase("history.db");
         listView = (ListView)findViewById(R.id.historyListView);
 
         adapter = new RestaurantAdapter();
 
-        adapter.addItem(new RestaurantItem("누들아한타이",true,true,"대한민국 쌍문동 139"));
-        adapter.addItem(new RestaurantItem("일락",false,false, "대한민국 쌍문동 138"));
+        adapter.addItem(new RestaurantItem("누들아한타이",true,true,"대한민국 서울특별시 쌍문동 139"));
+        adapter.addItem(new RestaurantItem("일락",false,false, "대한민국 서울특별시 쌍문동 138"));
 
         listView.setAdapter(adapter);
 
@@ -37,8 +40,21 @@ public class HistoryActivity extends AppCompatActivity {
                 //구글 상세 정보 조회 이동
             }
         });
+
+
     }
 
+    private void createDatabase(String name) {
+        try {
+            db = openOrCreateDatabase(
+                    name,
+                    Activity.MODE_PRIVATE,
+                    null);
+
+        } catch(Exception ex) {
+            ex.printStackTrace();
+        }
+    }
 
 
     class RestaurantAdapter extends BaseAdapter{
