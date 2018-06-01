@@ -12,8 +12,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         //왜 여기 안나와..ㅠㅠㅠ
         goHome();
-
-
     }
 
     private void goHome() {
