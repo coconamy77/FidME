@@ -40,11 +40,6 @@ public class HomeActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void onBtnRecomm(View view) {
-        intent = new Intent(getApplicationContext(),RecommandActivity.class);
-        startActivity(intent);
-    }
-
     public void onBtnBM(View view) {
         intent = new Intent(getApplicationContext(),BookMarkActivity.class);
         startActivity(intent);
@@ -57,6 +52,11 @@ public class HomeActivity extends AppCompatActivity {
 
     public void onBtnHistory(View view) {
         intent = new Intent(getApplicationContext(),HistoryActivity.class);
+        startActivity(intent);
+    }
+
+    public void onBtnRecom(View view) {
+        intent = new Intent(getApplicationContext(),RecommandActivity.class);
         startActivity(intent);
     }
 }
