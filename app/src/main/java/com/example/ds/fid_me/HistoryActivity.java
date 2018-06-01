@@ -17,7 +17,7 @@ public class HistoryActivity extends AppCompatActivity {
     ListView listView;
     RestaurantAdapter adapter;
 
-
+    public static SQLiteHelper sqLiteHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +56,9 @@ public class HistoryActivity extends AppCompatActivity {
                 //구글 상세 정보 조회 이동
             }
         });
+
+
+
 
 
     }
