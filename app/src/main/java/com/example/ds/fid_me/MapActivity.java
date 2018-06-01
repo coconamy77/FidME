@@ -239,6 +239,23 @@ public class MapActivity extends AppCompatActivity
 
             }
         });
+
+        mGoogleMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+
+            @Override
+            public void onInfoWindowClick(Marker marker) {
+
+                Intent intent = new Intent(getBaseContext(), HistoryActivity.class);
+
+                String title = marker.getTitle();
+                String address = marker.getSnippet();
+
+                intent.putExtra("title", title);
+                intent.putExtra( "address", address);
+
+                startActivity(intent);
+            }
+        });
     }
 
 
