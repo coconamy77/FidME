@@ -8,13 +8,13 @@ public class RestaurantItem {
 
     String name;
     boolean star;
-    boolean memo;
+    int memoId;
     String address;
 
-    public RestaurantItem(String name, boolean star, boolean memo, String address ){
+    public RestaurantItem(String name, String address, int memoId, boolean star ){
         this.name = name;
         this.star = star;
-        this.memo = memo;
+        this.memoId = memoId;
         this.address = address;
     }
 
@@ -34,12 +34,12 @@ public class RestaurantItem {
         this.star = star;
     }
 
-    public boolean isMemo() {
-        return memo;
+    public int getMemoId() {
+        return memoId;
     }
 
-    public void setMemo(boolean memo) {
-        this.memo = memo;
+    public void setMemoId(int memoId) {
+        this.memoId = memoId;
     }
 
     public String getAddress() {
