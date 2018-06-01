@@ -26,10 +26,26 @@ public class HistoryActivity extends AppCompatActivity {
 
         listView = (ListView)findViewById(R.id.historyListView);
 
+        String title = "";
+        String address = "";
+
+        Bundle extras = getIntent().getExtras();
+
+        if (extras == null) {
+            title = "error";
+        }
+        else {
+
+            title = extras.getString("title");
+            address = extras.getString("address");
+        }
+
         adapter = new RestaurantAdapter();
 
-        adapter.addItem(new RestaurantItem("누들아한타이",true,true,"대한민국 서울특별시 쌍문동 139"));
-        adapter.addItem(new RestaurantItem("일락",false,false, "대한민국 서울특별시 쌍문동 138"));
+      //  adapter.addItem(new RestaurantItem("누들아한타이",true,true,"대한민국 서울특별시 쌍문동 139"));
+     //   adapter.addItem(new RestaurantItem("일락",false,false, "대한민국 서울특별시 쌍문동 138"));
+
+        adapter.addItem(new RestaurantItem(title, true, true, address));
 
         listView.setAdapter(adapter);
 
