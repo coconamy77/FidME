@@ -14,16 +14,16 @@ import java.util.ArrayList;
 
 public class HistoryActivity extends AppCompatActivity {
 
-    SQLiteDatabase db;
     ListView listView;
     RestaurantAdapter adapter;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history);
 
-        createDatabase("history.db");
         listView = (ListView)findViewById(R.id.historyListView);
 
         adapter = new RestaurantAdapter();
@@ -44,17 +44,7 @@ public class HistoryActivity extends AppCompatActivity {
 
     }
 
-    private void createDatabase(String name) {
-        try {
-            db = openOrCreateDatabase(
-                    name,
-                    Activity.MODE_PRIVATE,
-                    null);
 
-        } catch(Exception ex) {
-            ex.printStackTrace();
-        }
-    }
 
 
     class RestaurantAdapter extends BaseAdapter{
