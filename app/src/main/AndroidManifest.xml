@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.ds.fid_me">
 
+
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-sdk   android:maxSdkVersion="19"
@@ -36,9 +37,8 @@
             android:value="AIzaSyBY8GfkPWvoyPps_DVseE0WdJkzh3UTWGw" />
 
         <activity android:name=".HistoryActivity" />
-        <activity android:name=".FindActivity" >
+        <activity android:name=".FindActivity" />
 
-        </activity>
         <activity android:name=".RecommandActivity" />
 
     </application>
