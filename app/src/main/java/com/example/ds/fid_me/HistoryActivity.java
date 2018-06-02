@@ -12,21 +12,19 @@ import android.view.ViewGroup;
 import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import java.util.ArrayList;
 
 public class HistoryActivity extends AppCompatActivity{
 
-    ListView listView;
+    private ListView listView;
     RestaurantAdapter adapter;
     int historyCount=0;
     public static final String TAG = "HistoryActivity";
 
-    /**
-     * 데이터베이스 인스턴스
-     */
-    public static RestaurantDatabase rDatabase = null;
+     SQLiteHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,17 +33,18 @@ public class HistoryActivity extends AppCompatActivity{
 
         listView = (ListView)findViewById(R.id.historyListView);
 
+        dbHelper = new SQLiteHelper(this);
+
+
 
         adapter = new RestaurantAdapter();
 
-      //  adapter.addItem(new RestaurantItem(,true,true,"대한민국 서울특별시 쌍문동 139"));
-     //   adapter.addItem(new RestaurantItem("일락",false,false, "대한민국 서울특별시 쌍문동 138"));
-
-
         adapter.addItem(new RestaurantItem("누들아한타이", "대한민국 서울특별시 쌍문동 139", -1, false));
 
+        loadHistoryListData();
 
         listView.setAdapter(adapter);
+
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -56,40 +55,9 @@ public class HistoryActivity extends AppCompatActivity{
 
     }
 
-    protected void onStart() {
-
-        // 데이터베이스 열기
-        openDatabase();
-
-        // 메모 데이터 로딩
-        loadHistoryListData();
-
-
-        super.onStart();
-    }
 
 
 
-
-
-    /**
-     * 데이터베이스 열기 (데이터베이스가 없을 때는 만들기)
-     */
-    public void openDatabase() {
-        // open database
-        if (rDatabase != null) {
-            rDatabase.close();
-            rDatabase = null;
-        }
-
-        rDatabase = RestaurantDatabase.getInstance(this);
-        boolean isOpen = rDatabase.open();
-        if (isOpen) {
-            Log.d(TAG, "Memo database is open.");
-        } else {
-            Log.d(TAG, "Memo database is not open.");
-        }
-    }
 
 
     /**
@@ -97,39 +65,30 @@ public class HistoryActivity extends AppCompatActivity{
      */
 
     public int loadHistoryListData() {
-        String SQL = "select _id, INPUT_DATE, REST_NAME, LOCATION, ID_MEMO, STAR from HISTORY order by INPUT_DATE desc";
 
         int recordCount = -1;
 
-        if (HistoryActivity.rDatabase != null) {
-            Cursor outCursor = HistoryActivity.rDatabase.rawQuery(SQL);
+        Cursor data = dbHelper.getData("HISTORY");
 
-            recordCount = outCursor.getCount();
-            Log.d(TAG, "cursor count : " + recordCount + "\n");
+/*
+        while (data.moveToNext()) {
 
-            adapter.clear();
-            Resources res = getResources();
+            String restName = data.getString(2);
 
-            for (int i = 0; i < recordCount; i++) {
-                outCursor.moveToNext();
+            String location = data.getString(3);
+            int memoId = Integer.parseInt(data.getString(4));
 
-                String restName = outCursor.getString(2);
+            Boolean star = Boolean.parseBoolean(data.getString(5));
 
-                String location = outCursor.getString(3);
-                int memoId = Integer.parseInt(outCursor.getString(4));
+            adapter.addItem(new RestaurantItem(restName,location,memoId,star));
 
-                Boolean star = Boolean.parseBoolean(outCursor.getString(5));
-
-                adapter.addItem(new RestaurantItem(restName,location,memoId,star));
-
-
-            }
-
-            outCursor.close();
-
-            adapter.notifyDataSetChanged();
 
         }
+
+*/
+        adapter.notifyDataSetChanged();
+
+
         return recordCount;
     }
 
