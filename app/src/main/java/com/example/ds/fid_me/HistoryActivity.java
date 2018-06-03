@@ -41,7 +41,9 @@ public class HistoryActivity extends AppCompatActivity{
 
         adapter.addItem(new RestaurantItem("누들아한타이", "대한민국 서울특별시 쌍문동 139", -1, false));
 
-        loadHistoryListData();
+        //loadHistoryListData();
+
+
 
         listView.setAdapter(adapter);
 
