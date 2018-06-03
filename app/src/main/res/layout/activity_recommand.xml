@@ -21,32 +21,29 @@
             android:hint="enter text to search"/>
 
 
-
-        <Button android:id="@+id/button"
+        <Button
+            android:id="@+id/button"
 
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="2"
-            android:text="search"
-            android:textSize="12sp"
-            android:onClick="mOnClick"/>
+            android:onClick="mOnclick"
+            android:text="검색"
+            android:textSize="12sp" />
 
 
 
     </LinearLayout>
 
-    <ScrollView
-
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <TextView android:id="@+id/text"
-
+        <ListView
+            android:id="@+id/recommandListView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:textSize="8sp"
-            android:textStyle="bold"/>
-
-    </ScrollView>
+            android:layout_height="match_parent" />
+    </LinearLayout>
 
 </LinearLayout>
