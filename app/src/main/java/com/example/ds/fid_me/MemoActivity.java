@@ -11,6 +11,8 @@ import android.widget.ImageView;
 import android.widget.ListView;
 
 
+// 사진 저장하기 https://www.youtube.com/watch?v=4bU9cZsJRLI 6분 50초쯤?
+
 public class MemoActivity extends AppCompatActivity {
 
     MemoListAdapter mMemoListAdapter;

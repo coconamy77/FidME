@@ -1,6 +1,7 @@
 package com.example.ds.fid_me;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,6 +13,9 @@ import android.widget.TextView;
 public class HomeActivity extends AppCompatActivity {
 
     Intent intent;
+    private static final String TAG = "HomeActivity";
+    SQLiteHelper dbHelper;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
