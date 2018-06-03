@@ -203,6 +203,8 @@ public class RecommandActivity extends AppCompatActivity {
 
 
     }
+
+
     class RecommandAdapter extends BaseAdapter {
         ArrayList<RecommandListItem> items = new ArrayList<RecommandListItem>();
 

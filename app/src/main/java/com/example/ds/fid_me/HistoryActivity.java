@@ -1,6 +1,7 @@
 package com.example.ds.fid_me;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -23,6 +24,7 @@ public class HistoryActivity extends AppCompatActivity{
     RestaurantAdapter adapter;
     int historyCount=0;
     public static final String TAG = "HistoryActivity";
+    String restName, location ;
 
      SQLiteHelper dbHelper;
 
@@ -36,10 +38,16 @@ public class HistoryActivity extends AppCompatActivity{
         dbHelper = new SQLiteHelper(this);
 
 
+        Intent intent = getIntent();
+
+        restName = intent.getStringExtra("title");
+        location =  intent.getStringExtra("address");
 
         adapter = new RestaurantAdapter();
 
         adapter.addItem(new RestaurantItem("누들아한타이", "대한민국 서울특별시 쌍문동 139", -1, false));
+
+        adapter.addItem(new RestaurantItem(restName,location,-1,false));
 
         //loadHistoryListData();
 
