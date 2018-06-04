@@ -36,7 +36,7 @@ public class HistoryActivity extends AppCompatActivity{
         listView = (ListView)findViewById(R.id.historyListView);
 
         dbHelper = new SQLiteHelper(this);
-
+        Log.d("sql", "after helper");
 
         Intent intent = getIntent();
 
@@ -49,7 +49,7 @@ public class HistoryActivity extends AppCompatActivity{
 
         adapter.addItem(new RestaurantItem(restName,location,-1,false));
 
-        //loadHistoryListData();
+        loadHistoryListData();
 
 
 
@@ -80,7 +80,7 @@ public class HistoryActivity extends AppCompatActivity{
 
         Cursor data = dbHelper.getData("HISTORY");
 
-/*
+
         while (data.moveToNext()) {
 
             String restName = data.getString(2);
@@ -95,7 +95,7 @@ public class HistoryActivity extends AppCompatActivity{
 
         }
 
-*/
+
         adapter.notifyDataSetChanged();
 
 
