@@ -84,6 +84,8 @@ public class MapActivity extends AppCompatActivity
 
     List<Marker> previous_marker = null;
 
+    SQLiteHelper dbHelper;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

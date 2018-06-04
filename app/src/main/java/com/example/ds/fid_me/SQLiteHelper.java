@@ -94,6 +94,10 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         return  data;
     }
 
+    public void updateRest(String name){
+        //업데이트 하는것... 필요할까...? 최신 순으로 할 때? 음..
+    }
+
 
 
 
