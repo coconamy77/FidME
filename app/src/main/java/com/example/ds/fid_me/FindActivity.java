@@ -3,8 +3,11 @@ package com.example.ds.fid_me;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
-import android.widget.Button;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.BaseAdapter;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -15,6 +18,7 @@ public class FindActivity extends AppCompatActivity implements View.OnClickListe
     ArrayList<ArrayList> findFd1List;
     ArrayList<ArrayList> findFd2List;
     ArrayList<ArrayList> findFd3List;
+    FindAdapter adapter;
 
 
     private String[] findFd1={"찌개","덮밥/볶음밥", "면","국/탕","간식", "해장","기타"};
@@ -33,6 +37,29 @@ public class FindActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_find);
 
+        listView = (ListView) findViewById(R.id.findList);
+
+        adapter = new FindAdapter();
+
+        makeList(findFd1);
+
+        listView.setAdapter(adapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                //다음 단계로 이동
+
+            }
+        });
+
+
+    }
+
+    private void makeList(String[] findFd) {
+        for(String name : findFd){
+            adapter.addItem(new FindListItem(name));
+        }
 
     }
 
@@ -43,5 +70,50 @@ public class FindActivity extends AppCompatActivity implements View.OnClickListe
         intent.putExtra("foodName","");
         startActivity(intent);
         finish();
+
+    }
+
+
+
+
+    class FindAdapter extends BaseAdapter {
+        ArrayList<FindListItem> items = new ArrayList<FindListItem>();
+
+
+
+
+
+        @Override
+        public int getCount() {
+            return items.size();
+        }
+
+        public void addItem(FindListItem item){
+            items.add(item);
+        }
+
+        @Override
+        public Object getItem(int i) {
+            return items.get(i);
+        }
+
+        @Override
+        public long getItemId(int i) {
+            return i;
+        }
+
+        public void clear() {
+            items.clear();
+        }
+
+        @Override
+        public View getView(int i, View convertView, ViewGroup viewGroup) {
+            FindItemView view = new FindItemView(getApplicationContext());
+            FindListItem item = items.get(i);
+            view.setName(item.getName());
+
+
+            return view;
+        }
     }
 }
