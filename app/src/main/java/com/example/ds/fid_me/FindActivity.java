@@ -12,13 +12,12 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
-public class FindActivity extends AppCompatActivity implements View.OnClickListener {
+public class FindActivity extends AppCompatActivity {
 
-    ListView listView;
-    ArrayList<ArrayList> findFd1List;
-    ArrayList<ArrayList> findFd2List;
-    ArrayList<ArrayList> findFd3List;
-    FindAdapter adapter;
+    private ListView listView;
+    private FindAdapter adapter;
+    private int s1,s2;
+    private String finalFd;
 
 
     private String[] findFd1={"찌개","덮밥/볶음밥", "면","국/탕","간식", "해장","기타"};
@@ -48,7 +47,29 @@ public class FindActivity extends AppCompatActivity implements View.OnClickListe
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                //다음 단계로 이동
+                adapter = new FindAdapter();
+                s1 = i;
+                makeList(findFd2[i]);
+                listView.setAdapter(adapter);
+
+                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                        s2 = i;
+                        adapter = new FindAdapter();
+                        makeList(findFd3[s1][i]);
+                        listView.setAdapter(adapter);
+
+                        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                                finalFd = findFd3[s1][s2][i];
+
+                                goRcmd(finalFd);
+                            }
+                        });
+                    }
+                });
 
             }
         });
@@ -64,10 +85,10 @@ public class FindActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     // 사용자가 최종적으로 선택한 버튼(음식이름)의 값을 받아와서, RecommandActivity로 넘겨준다.
-    @Override
-    public void onClick(View v) {
+
+    public void goRcmd(String fd) {
         Intent intent = new Intent(this, RecommandActivity.class);
-        intent.putExtra("foodName","");
+        intent.putExtra("foodName",fd);
         startActivity(intent);
         finish();
 
@@ -110,6 +131,7 @@ public class FindActivity extends AppCompatActivity implements View.OnClickListe
         public View getView(int i, View convertView, ViewGroup viewGroup) {
             FindItemView view = new FindItemView(getApplicationContext());
             FindListItem item = items.get(i);
+
             view.setName(item.getName());
 
 

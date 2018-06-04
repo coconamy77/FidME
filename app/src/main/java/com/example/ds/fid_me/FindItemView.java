@@ -26,7 +26,7 @@ public class FindItemView extends LinearLayout {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.find_listitem, this, true);
 
-        TextView foodName = (TextView)findViewById(R.id.foodName);
+        foodName = (TextView)findViewById(R.id.foodName);
 
     }
 
