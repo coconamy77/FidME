@@ -50,7 +50,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int i, int i1) {
-        db.execSQL("DROP  TABLE IF EXISTS HISTORY");
+        db.execSQL("DROP  TABLE IF EXISTS "+HISTORY_TABLE);
         onCreate(db);
 
     }
@@ -63,9 +63,9 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 
     public void addData(String tableName, String col3, String col4, String col5, String col6 ){
 
-
+        Log.d("sql","try to add Data");
         SQLiteDatabase database = getWritableDatabase();
-        String sql = "INSERT INTO "+tableName+" VALUES (NULL, NULL, ?,?,?,? )";
+        String sql = "INSERT INTO "+tableName+" VALUES (?,?, ?,?,?,? )";
 
         SQLiteStatement statement = database.compileStatement(sql);
         statement.clearBindings();
@@ -77,6 +77,20 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 
         statement.executeInsert();
 
+
+    }
+
+
+    public void delData(String tableName,String id){
+
+        Log.d("sql","try to del Data");
+        SQLiteDatabase database = getWritableDatabase();
+        String sql = "";
+        if (id.equals("")) {
+            sql = "DELETE FROM " + tableName;
+        }else {sql = "DELETE FROM "+tableName+" WHERE ID = "+id;}
+
+        database.execSQL(sql);
 
     }
 
@@ -94,7 +108,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 
     public Cursor getItemId(String tableName, String name){
         SQLiteDatabase db = this.getWritableDatabase();
-        String query = "SELECT "+ COL1+" FROM "+ tableName+ "WHERE "+ COL3+"= '"+ name+"' ";
+        String query = "SELECT "+ COL1+" FROM "+ tableName+ " WHERE "+ COL3+"= '"+ name+"' ";
         Cursor data = db.rawQuery(query, null);
         return  data;
     }
@@ -102,6 +116,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
     public void updateRest(String name){
         //업데이트 하는것... 필요할까...? 최신 순으로 할 때? 음..
     }
+
 
 
 

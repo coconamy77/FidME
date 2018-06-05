@@ -25,7 +25,7 @@
         android:onClick="goDetail"
         android:text="누들아한타이"
         android:textColor="#000000"
-        android:textSize="22sp" />
+        android:textSize="18sp" />
 
     <ImageView
 
