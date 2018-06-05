@@ -1,9 +1,11 @@
 package com.example.ds.fid_me;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
@@ -33,10 +35,14 @@ public class RecommandActivity extends AppCompatActivity {
 
     ArrayList<String> result_name_list;
     ArrayList<String> result_address_list;
-    ArrayList<ArrayList> result_all_list;
+    ArrayList<String> result_all_list;
+    ArrayList<String> result_mapy_list;
 
     String name = "";
     String address = "";
+    String mapx = "";
+    String mapy = "";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,9 +55,6 @@ public class RecommandActivity extends AppCompatActivity {
 
         listView = (ListView)findViewById(R.id.recommandListView);
 
-      //  adapter = new RecommandAdapter();
-   //     ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,R.layout.recommand_listitem, result_name_list);
-//        listView.setAdapter(adapter);
         result_name_list=new ArrayList<>();
         result_address_list = new ArrayList<>();
         result_all_list = new ArrayList<>();
@@ -99,7 +102,7 @@ public class RecommandActivity extends AppCompatActivity {
                     while (eventType != XmlPullParser.END_DOCUMENT) {
                         switch (eventType) {
                             case XmlPullParser.START_DOCUMENT:
-                                buffer.append("start NAVER XML parsing...\n\n");
+                                buffer.append("검색 시작\n\n");
                                 break;
 
 
@@ -115,6 +118,8 @@ public class RecommandActivity extends AppCompatActivity {
                                     buffer.append(xpp.getText()); //title 요소의 TEXT 읽어와서 문자열버퍼에 추가
                                     buffer.append("\n");          //줄바꿈 문자 추가
                                     name = xpp.getText();
+                                    result_name_list.add(name);
+
 
                                 } else if (tag.equals("category")) {
 
@@ -144,8 +149,8 @@ public class RecommandActivity extends AppCompatActivity {
                                     buffer.append("\n");          //줄바꿈 문자 추가
 
                                     address = xpp.getText();
-                                    result_name_list.add(name + ':' +' '+ address);
-
+                                    result_address_list.add(address);
+                                    result_all_list.add(name + ':' +'\n'+ address);
 
                                 }
 
@@ -154,13 +159,16 @@ public class RecommandActivity extends AppCompatActivity {
                                     buffer.append("지도 위치 X :");
                                     xpp.next();
                                     buffer.append(xpp.getText()); //mapx 요소의 TEXT 읽어와서 문자열버퍼에 추가
-                                    buffer.append("  ,  ");          //줄바꿈 문자 추가
+                                    buffer.append("  ,  ");//줄바꿈 문자 추가
+                                    mapx = xpp.getText();
+
 
                                 } else if (tag.equals("mapy")) {
                                     buffer.append("지도 위치 Y :");
                                     xpp.next();
                                     buffer.append(xpp.getText()); //mapy 요소의 TEXT 읽어와서 문자열버퍼에 추가
                                     buffer.append("\n");          //줄바꿈 문자 추가
+                                    mapy = xpp.getText();
 
                                 }
 
@@ -181,7 +189,7 @@ public class RecommandActivity extends AppCompatActivity {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
-                buffer.append("end NAVER XML parsing...\n");
+                buffer.append("검색 종료\n");
                 System.out.println(buffer.toString());
 
 
@@ -191,48 +199,35 @@ public class RecommandActivity extends AppCompatActivity {
                     @Override
                     public void run() {
 
-                        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(),R.layout.recommand_listitem, R.id.textname, result_name_list);
+                        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(),R.layout.recommand_listitem, R.id.textname, result_all_list);
                         listView.setAdapter(adapter);
-                        //   text.setText(buffer.toString());n
+
+                        // 항목 클릭하면?
+                        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                                Intent intent = new Intent(getBaseContext(), RecommandMapActivity.class);
+
+
+                                String name = result_name_list.get(i+1);
+                                String address = result_address_list.get(i);
+
+                                intent.putExtra("name", name);
+                                intent.putExtra( "address", address);
+
+                                startActivity(intent);
+
+
+                            }
+                        });
                     }
                 });
+
 
             }
         }).start();
 
-
-
-    }
-    class RecommandAdapter extends BaseAdapter {
-        ArrayList<RecommandListItem> items = new ArrayList<RecommandListItem>();
-
-        @Override
-        public int getCount() {
-            return items.size();
-        }
-
-        public void addItem(RecommandListItem item){
-            items.add(item);
-        }
-
-        @Override
-        public Object getItem(int i) {
-            return items.get(i);
-        }
-
-        @Override
-        public long getItemId(int i) {
-            return i;
-        }
-
-        @Override
-        public View getView(int i, View convertView, ViewGroup viewGroup) {
-            RecommandItemView view = new RecommandItemView(getApplicationContext());
-            RecommandListItem item = items.get(i);
-            view.setName(item.getName());
-            view.setAddress(item.getAddress());
-            return view;
-        }
     }
 
 }
