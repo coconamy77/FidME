@@ -38,16 +38,10 @@ public class HistoryActivity extends AppCompatActivity{
         dbHelper = new SQLiteHelper(this);
         Log.d("sql", "after helper");
 
-        Intent intent = getIntent();
 
-        restName = intent.getStringExtra("title");
-        location =  intent.getStringExtra("address");
 
         adapter = new RestaurantAdapter();
 
-        adapter.addItem(new RestaurantItem("누들아한타이", "대한민국 서울특별시 쌍문동 139", -1, false));
-
-        adapter.addItem(new RestaurantItem(restName,location,-1,false));
 
         loadHistoryListData();
 

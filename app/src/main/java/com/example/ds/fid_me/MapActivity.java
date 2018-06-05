@@ -247,6 +247,7 @@ public class MapActivity extends AppCompatActivity
             @Override
             public void onInfoWindowClick(Marker marker) {
 
+
                 Intent intent = new Intent(getBaseContext(), HistoryActivity.class);
 
                 String title = marker.getTitle();
