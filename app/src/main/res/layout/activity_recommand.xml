@@ -12,23 +12,21 @@
         android:orientation="horizontal"
         android:weightSum="10">
 
-        <EditText android:id="@+id/edit"
+        <TextView android:id="@+id/txtView"
 
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="8"
-            android:textSize="12sp"
-            android:hint="enter text to search"/>
+            android:textSize="28sp"
+            android:text="원하시는 음식점이 있나요?"
+            android:textColor="#000000"/>
 
 
         <Button
             android:id="@+id/button"
-
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
             android:onClick="mOnclick"
-            android:text="검색"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="다시 하기"
             android:textSize="12sp" />
 
 

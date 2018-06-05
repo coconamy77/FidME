@@ -20,6 +20,7 @@ public class RestaurantItemView extends LinearLayout {
     ImageView restStar,memoBtn, mapBtn;
 
 
+
     public RestaurantItemView(Context context) {
         super(context);
         init(context);

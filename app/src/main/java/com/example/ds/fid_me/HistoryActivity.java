@@ -1,6 +1,7 @@
 package com.example.ds.fid_me;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -23,6 +24,7 @@ public class HistoryActivity extends AppCompatActivity{
     RestaurantAdapter adapter;
     int historyCount=0;
     public static final String TAG = "HistoryActivity";
+    String restName, location ;
 
      SQLiteHelper dbHelper;
 
@@ -34,14 +36,16 @@ public class HistoryActivity extends AppCompatActivity{
         listView = (ListView)findViewById(R.id.historyListView);
 
         dbHelper = new SQLiteHelper(this);
+        Log.d("sql", "after helper");
 
 
 
         adapter = new RestaurantAdapter();
 
-        adapter.addItem(new RestaurantItem("누들아한타이", "대한민국 서울특별시 쌍문동 139", -1, false));
 
         loadHistoryListData();
+
+
 
         listView.setAdapter(adapter);
 
@@ -70,7 +74,7 @@ public class HistoryActivity extends AppCompatActivity{
 
         Cursor data = dbHelper.getData("HISTORY");
 
-/*
+
         while (data.moveToNext()) {
 
             String restName = data.getString(2);
@@ -85,7 +89,7 @@ public class HistoryActivity extends AppCompatActivity{
 
         }
 
-*/
+
         adapter.notifyDataSetChanged();
 
 

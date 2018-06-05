@@ -36,7 +36,14 @@
             android:value="AIzaSyBY8GfkPWvoyPps_DVseE0WdJkzh3UTWGw" />
 
         <activity android:name=".HistoryActivity" />
+<<<<<<< HEAD
         <activity android:name=".FindActivity" />
+=======
+        <activity android:name=".FindActivity" >
+
+        </activity>
+
+>>>>>>> e1c7ff709fc13aa3edab732698cc5c409f7a169d
         <activity android:name=".RecommandActivity" />
         <activity android:name=".RecommandMapActivity"></activity>
     </application>

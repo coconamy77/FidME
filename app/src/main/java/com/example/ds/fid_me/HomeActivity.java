@@ -60,7 +60,7 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     public void onBtnRecom(View view) {
-        intent = new Intent(getApplicationContext(),RecommandActivity.class);
+        intent = new Intent(getApplicationContext(),FindActivity.class);
         startActivity(intent);
     }
 }
