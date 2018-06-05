@@ -71,7 +71,7 @@ public class RecommandActivity extends AppCompatActivity {
 
                 // String keyword = edit.getText().toString();
                 Intent intent = getIntent();
-                String keyword = intent.getStringExtra("foodName");
+                String keyword = "도봉구" +intent.getStringExtra("foodName");
 
                 String clientId = "Bxn8VZxrR7tA6L6oV9Fa";//애플리케이션 클라이언트 아이디값";
                 String clientSecret = "Uf8Ldu5n8p";//애플리케이션 클라이언트 시크릿값";
