@@ -1,16 +1,19 @@
 package com.example.ds.fid_me;
 
 import android.app.FragmentManager;
+import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.List;
@@ -18,6 +21,7 @@ import java.util.List;
 
 public class RecommandMapActivity extends AppCompatActivity implements OnMapReadyCallback {
 
+    private GoogleMap mGoogleMap = null;
     List<Address> address;
 
     @Override
@@ -34,6 +38,8 @@ public class RecommandMapActivity extends AppCompatActivity implements OnMapRead
 
     @Override
     public void onMapReady(final GoogleMap map) {
+
+        mGoogleMap = map;
 
         String  name = "";
         String addr = "";
@@ -63,6 +69,21 @@ public class RecommandMapActivity extends AppCompatActivity implements OnMapRead
         } catch (Exception e) {
             return;
         }
+
+        mGoogleMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+
+            @Override
+            public void onInfoWindowClick(Marker marker) {
+
+
+                Intent intent = new Intent(getBaseContext(), HistoryActivity.class);
+
+                String title = marker.getTitle();
+                intent.putExtra("title", title);
+
+                startActivity(intent);
+            }
+        });
 
     }
 

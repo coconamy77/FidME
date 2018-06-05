@@ -28,41 +28,30 @@ import java.util.ArrayList;
 
 public class RecommandActivity extends AppCompatActivity {
 
+    EditText edit;
     TextView text;
     Button btn;
     ListView listView;
 
-    String keyword;
-
     ArrayList<String> result_name_list;
     ArrayList<String> result_address_list;
     ArrayList<String> result_all_list;
-    ArrayList<String> result_mapy_list;
 
     String name = "";
     String address = "";
-<<<<<<< HEAD
     String mapx = "";
-    String mapy = "";
 
-=======
-    
-    
->>>>>>> e1c7ff709fc13aa3edab732698cc5c409f7a169d
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recommand);
 
+      //  edit = (EditText) findViewById(R.id.edit);
         text = (TextView) findViewById(R.id.textView);
         btn = (Button) findViewById(R.id.button);
 
         listView = (ListView)findViewById(R.id.recommandListView);
-        Intent intent = getIntent();
-        keyword = intent.getStringExtra("foodName");
-
-
 
         result_name_list=new ArrayList<>();
         result_address_list = new ArrayList<>();
@@ -73,11 +62,16 @@ public class RecommandActivity extends AppCompatActivity {
     }
 
     private void showList() {
+
+
         new Thread(new Runnable() {
 
             @Override
             public void run() {
 
+                // String keyword = edit.getText().toString();
+                Intent intent = getIntent();
+                String keyword = intent.getStringExtra("foodName");
 
                 String clientId = "Bxn8VZxrR7tA6L6oV9Fa";//애플리케이션 클라이언트 아이디값";
                 String clientSecret = "Uf8Ldu5n8p";//애플리케이션 클라이언트 시크릿값";
@@ -87,151 +81,8 @@ public class RecommandActivity extends AppCompatActivity {
                 try {
 
                     result_name_list.clear();
-                    // result_link_list.clear();
-
-                    String apiURL = "https://openapi.naver.com/v1/search/local.xml?query=" + keyword +"&display=20";
-
-                    URL url = new URL(apiURL);
-                    HttpURLConnection con = (HttpURLConnection) url.openConnection();
-                    con.setRequestMethod("GET");
-                    con.setRequestProperty("X-Naver-Client-Id", clientId);
-                    con.setRequestProperty("X-Naver-Client-Secret", clientSecret);
-
-                    InputStream is= con.getInputStream();
-
-                    XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
-                    XmlPullParser xpp = factory.newPullParser();
-                    xpp.setInput(new InputStreamReader(is, "UTF-8"));
-                    String tag;
-
-                    xpp.next();
-                    int eventType = xpp.getEventType();
-
-                    while (eventType != XmlPullParser.END_DOCUMENT) {
-                        switch (eventType) {
-                            case XmlPullParser.START_DOCUMENT:
-                                buffer.append("start NAVER XML parsing...\n\n");
-                                break;
-
-
-                            case XmlPullParser.START_TAG:
-
-                                tag = xpp.getName();    //테그 이름 얻어오기
-
-                                if (tag.equals("item")) ;// 첫번째 검색결과
-                                else if (tag.equals("title")) {
-
-                                    buffer.append("업소명 : ");
-                                    xpp.next();
-                                    buffer.append(xpp.getText()); //title 요소의 TEXT 읽어와서 문자열버퍼에 추가
-                                    buffer.append("\n");          //줄바꿈 문자 추가
-                                    name = xpp.getText();
-
-                                } else if (tag.equals("category")) {
-
-                                    buffer.append("업종 : ");
-                                    xpp.next();
-                                    buffer.append(xpp.getText()); //category 요소의 TEXT 읽어와서 문자열버퍼에 추가
-                                    buffer.append("\n");          //줄바꿈 문자 추가
-
-                                } else if (tag.equals("description")) {
-                                    buffer.append("세부설명 :");
-                                    xpp.next();
-                                    buffer.append(xpp.getText()); //description 요소의 TEXT 읽어와서 문자열버퍼에 추가
-                                    buffer.append("\n");          //줄바꿈 문자 추가
-
-                                } else if (tag.equals("telephone")) {
-
-                                    buffer.append("연락처 :");
-                                    xpp.next();
-                                    buffer.append(xpp.getText()); //telephone 요소의 TEXT 읽어와서 문자열버퍼에 추가
-                                    buffer.append("\n");          //줄바꿈 문자 추가
-
-                                } else if (tag.equals("address")) {
-
-                                    buffer.append("주소 :");
-                                    xpp.next();
-                                    buffer.append(xpp.getText()); //address 요소의 TEXT 읽어와서 문자열버퍼에 추가
-                                    buffer.append("\n");          //줄바꿈 문자 추가
-
-                                    address = xpp.getText();
-                                    result_name_list.add(name + ':' +' '+ address);
-
-
-                                }
-
-                                else if (tag.equals("mapx")) {
-
-                                    buffer.append("지도 위치 X :");
-                                    xpp.next();
-                                    buffer.append(xpp.getText()); //mapx 요소의 TEXT 읽어와서 문자열버퍼에 추가
-                                    buffer.append("  ,  ");          //줄바꿈 문자 추가
-
-                                } else if (tag.equals("mapy")) {
-                                    buffer.append("지도 위치 Y :");
-                                    xpp.next();
-                                    buffer.append(xpp.getText()); //mapy 요소의 TEXT 읽어와서 문자열버퍼에 추가
-                                    buffer.append("\n");          //줄바꿈 문자 추가
-
-                                }
-
-                                break;
-
-                            case XmlPullParser.TEXT:
-                                break;
-
-                            case XmlPullParser.END_TAG:
-                                tag = xpp.getName();    //테그 이름 얻어오기
-                                if (tag.equals("item")) buffer.append("\n"); // 첫번째 검색결과종료..줄바꿈
-                                break;
-
-                        }
-                        eventType = xpp.next();
-                    }
-                } catch (Exception e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
-                buffer.append("end NAVER XML parsing...\n");
-                System.out.println(buffer.toString());
-
-
-
-
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-
-                        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(),R.layout.recommand_listitem, R.id.textname, result_name_list);
-                        listView.setAdapter(adapter);
-                        //   text.setText(buffer.toString());n
-                    }
-                });
-
-            }
-        }).start();
-
-
-    }
-
-    // 검색버튼 클릭하면,
-    public void mOnclick(View view) {
-/*
-        new Thread(new Runnable() {
-
-            @Override
-            public void run() {
-
-
-                String clientId = "Bxn8VZxrR7tA6L6oV9Fa";//애플리케이션 클라이언트 아이디값";
-                String clientSecret = "Uf8Ldu5n8p";//애플리케이션 클라이언트 시크릿값";
-                final StringBuffer buffer = new StringBuffer();
-
-
-                try {
-
-                    result_name_list.clear();
-                   // result_link_list.clear();
+                    result_address_list.clear();
+                    result_all_list.clear();
 
                     String apiURL = "https://openapi.naver.com/v1/search/local.xml?query=" + keyword +"&display=20";
 
@@ -320,7 +171,7 @@ public class RecommandActivity extends AppCompatActivity {
                                     xpp.next();
                                     buffer.append(xpp.getText()); //mapy 요소의 TEXT 읽어와서 문자열버퍼에 추가
                                     buffer.append("\n");          //줄바꿈 문자 추가
-                                    mapy = xpp.getText();
+
 
                                 }
 
@@ -380,48 +231,16 @@ public class RecommandActivity extends AppCompatActivity {
             }
         }).start();
 
-<<<<<<< HEAD
-=======
-*/
+    }
 
-        Intent intent = new Intent(getApplicationContext(), FindActivity.class);
+    // 다시하기 버튼 누르면?
+    public void mOnclick(View view) {
+        Intent intent = new Intent(this, FindActivity.class);
         startActivity(intent);
         finish();
+
     }
-
-
-    class RecommandAdapter extends BaseAdapter {
-        ArrayList<RecommandListItem> items = new ArrayList<RecommandListItem>();
-
-        @Override
-        public int getCount() {
-            return items.size();
-        }
-
-        public void addItem(RecommandListItem item){
-            items.add(item);
-        }
-
-        @Override
-        public Object getItem(int i) {
-            return items.get(i);
-        }
-
-        @Override
-        public long getItemId(int i) {
-            return i;
-        }
-
-        @Override
-        public View getView(int i, View convertView, ViewGroup viewGroup) {
-            RecommandItemView view = new RecommandItemView(getApplicationContext());
-            RecommandListItem item = items.get(i);
-            view.setName(item.getName());
-            view.setAddress(item.getAddress());
-            return view;
-        }
->>>>>>> e1c7ff709fc13aa3edab732698cc5c409f7a169d
-    }
-
 }
+
+
 
