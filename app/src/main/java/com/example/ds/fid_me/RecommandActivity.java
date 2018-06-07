@@ -157,24 +157,6 @@ public class RecommandActivity extends AppCompatActivity {
 
                                 }
 
-                                else if (tag.equals("mapx")) {
-
-                                    buffer.append("지도 위치 X :");
-                                    xpp.next();
-                                    buffer.append(xpp.getText()); //mapx 요소의 TEXT 읽어와서 문자열버퍼에 추가
-                                    buffer.append("  ,  ");//줄바꿈 문자 추가
-                                    mapx = xpp.getText();
-
-
-                                } else if (tag.equals("mapy")) {
-                                    buffer.append("지도 위치 Y :");
-                                    xpp.next();
-                                    buffer.append(xpp.getText()); //mapy 요소의 TEXT 읽어와서 문자열버퍼에 추가
-                                    buffer.append("\n");          //줄바꿈 문자 추가
-
-
-                                }
-
                                 break;
 
                             case XmlPullParser.TEXT:
