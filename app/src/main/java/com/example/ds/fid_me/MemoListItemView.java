@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -58,6 +59,7 @@ public class MemoListItemView extends LinearLayout{
     }
 
     public void setContents(int index, String data) {
+        Log.d("memolist","set contents");
         if (index == 0) {
             memoDate.setText(data);
         } else if (index == 1) {
