@@ -16,6 +16,7 @@ import android.widget.BaseAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
@@ -28,6 +29,8 @@ public class HistoryActivity extends AppCompatActivity{
     int historyCount=0;
     public static final String TAG = "HistoryActivity";
     String restName, location ;
+    private String tableName = "HISTORY";
+
 
      SQLiteHelper dbHelper;
 
@@ -62,7 +65,13 @@ public class HistoryActivity extends AppCompatActivity{
 
     }
 
+    public void onBtnDel(View view) {
+        dbHelper.delData(tableName,"");
+        adapter.delAllItem();
+        adapter.notifyDataSetChanged();
 
+        Toast.makeText(this, "삭제완료되었습니다.",Toast.LENGTH_LONG).show();
+    }
 
 
 
@@ -102,7 +111,6 @@ public class HistoryActivity extends AppCompatActivity{
 
 
 
-
     class RestaurantAdapter extends BaseAdapter{
         ArrayList<RestaurantItem> items = new ArrayList<RestaurantItem>();
 
@@ -113,6 +121,10 @@ public class HistoryActivity extends AppCompatActivity{
 
         public void addItem(RestaurantItem item){
             items.add(item);
+        }
+
+        public void delAllItem(){
+            items.clear();
         }
 
         @Override

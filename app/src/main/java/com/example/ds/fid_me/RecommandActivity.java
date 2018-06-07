@@ -3,6 +3,7 @@ package com.example.ds.fid_me;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -12,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserFactory;
@@ -41,6 +43,7 @@ public class RecommandActivity extends AppCompatActivity {
     String address = "";
     String mapx = "";
 
+    SQLiteHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +55,8 @@ public class RecommandActivity extends AppCompatActivity {
         btn = (Button) findViewById(R.id.button);
 
         listView = (ListView)findViewById(R.id.recommandListView);
+
+        dbHelper = new SQLiteHelper(this);
 
         result_name_list=new ArrayList<>();
         result_address_list = new ArrayList<>();
@@ -192,14 +197,25 @@ public class RecommandActivity extends AppCompatActivity {
                             @Override
                             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
+
+
                                 Intent intent = new Intent(getBaseContext(), RecommandMapActivity.class);
 
 
                                 String name = result_name_list.get(i+1);
                                 String address = result_address_list.get(i);
 
+                                Log.d("sql","go to dbHelper");
+                                dbHelper.addData("HISTORY",name, address,"-1","false");
+
+                                String id = dbHelper.getItemId("HISTORY",name).toString();
+                                Toast.makeText(getApplicationContext(),id, Toast.LENGTH_LONG).show();
+
+
                                 intent.putExtra("name", name);
                                 intent.putExtra( "address", address);
+
+
 
                                 startActivity(intent);
 
