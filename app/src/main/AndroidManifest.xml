@@ -20,18 +20,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".MemoActivity">
+
+        </activity>
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
-        </activity>
-        <activity android:name=".MainActivity">
-
         </activity>
         <activity android:name=".HomeActivity" />
-        <activity android:name=".MapActivity"></activity>
+        <activity android:name=".MapActivity" />
         <activity android:name=".BookMarkActivity" />
 
         <meta-data
@@ -40,9 +39,9 @@
 
         <activity android:name=".HistoryActivity" />
         <activity android:name=".FindActivity" />
-
         <activity android:name=".RecommandActivity" />
-        <activity android:name=".RecommandMapActivity"></activity>
+        <activity android:name=".RecommandMapActivity" />
+        <activity android:name=".MemoNewActivity"></activity>
     </application>
 
 </manifest>

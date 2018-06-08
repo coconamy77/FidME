@@ -15,7 +15,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //왜 여기 안나와..ㅠㅠㅠ
 
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {

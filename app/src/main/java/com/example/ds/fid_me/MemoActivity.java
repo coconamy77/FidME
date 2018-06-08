@@ -25,6 +25,8 @@ public class MemoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_memo);
 
+        Log.d("memolist", "on create ");
+
         mMemoListView = (ListView)findViewById(R.id.memoList);
         mMemoListAdapter = new MemoListAdapter(this);
         mMemoListView.setAdapter(mMemoListAdapter);
@@ -37,6 +39,8 @@ public class MemoActivity extends AppCompatActivity {
 
 
         ImageView newMemoBtn = (ImageView) findViewById(R.id.newMemoBtn);
+        Log.d("memolist", "on create, matching finished ");
+
 
         newMemoBtn.setOnClickListener(new OnClickListener() {
             @Override
@@ -44,17 +48,22 @@ public class MemoActivity extends AppCompatActivity {
                 Log.d("MemoActivity","clicked");
             }
         });
-        
-        
+
+        Log.d("memolist", "go load memo list data");
         loadMemoListData();
+
     }
 
     private void loadMemoListData() {
+
         MemoListItem aItem = new MemoListItem("1", "2013-06-10 10:20","누들아한타이",
                 "맛있는 곳!",null, null,2
                 );
 
+        Log.d("memolist", "first memo made, go adapter to add the item ");
+
         mMemoListAdapter.addItem(aItem);
+
         mMemoListAdapter.notifyDataSetChanged();
     }
 
