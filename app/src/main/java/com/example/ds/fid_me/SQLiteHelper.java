@@ -49,6 +49,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         createTable = "CREATE TABLE "+MEMO_TABLE+" ("
                 +" ID INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, "
                 +M_COL2+" TIMESTAMP DEFAULT CURRENT_TIMESTAMP, "
+               // +M_COL2+" TEXT, "
                 +M_COL3+" TEXT, "
                 +M_COL4+" TEXT, "
                 +M_COL5+" TEXT, "
@@ -77,7 +78,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
     }
 
     public void addData(String tableName, String col3, String col4, String col5, String col6 ){
-
+        Log.d("sql","on addData()");
         String sql;
         SQLiteDatabase database = getWritableDatabase();
         Log.d("sql","try to add Data");

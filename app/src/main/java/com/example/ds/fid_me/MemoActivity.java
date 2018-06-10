@@ -1,5 +1,6 @@
 package com.example.ds.fid_me;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -48,7 +49,7 @@ public class MemoActivity extends AppCompatActivity {
 
         mMemoListView.setOnItemClickListener(new OnItemClickListener() {
             public void onItemClick(AdapterView<?> arg0, View arg1,int position, long arg3){
-                viewMemo(position);
+                Intent innt = new Intent(this, )
             }
 
         });
@@ -61,17 +62,22 @@ public class MemoActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Log.d("MemoActivity","clicked");
+
+                Log.d("newMemo"," go new memo");
+                Intent intent = new Intent(getApplicationContext(),MemoNewActivity.class);
+
+                startActivity(intent);
+
             }
         });
 
-        Log.d("memolist", "go load memo list data");
-        loadMemoListData();
+
 
     }
 
-    private void loadMemoListData() {
+    private int loadMemoListData() {
 
-        MemoListItem aItem = new MemoListItem("1", "2013-06-10 10:20","누들아한타이",
+       /* MemoListItem aItem = new MemoListItem("1", "2013-06-10 10:20","누들아한타이",
                 "맛있는 곳!",null,4
                 );
 
@@ -81,12 +87,11 @@ public class MemoActivity extends AppCompatActivity {
 
         adapter.notifyDataSetChanged();
 
-/*
+*/
 
         int recordCount = -1;
 
         Cursor data = dbHelper.getData("MEMO");
-        Cursor data_photo =  dbHelper.getData("PHOTO");
 
         while (data.moveToNext()) {
 
@@ -94,17 +99,11 @@ public class MemoActivity extends AppCompatActivity {
             String memoDate = data.getString(1);
             String memoName = data.getString(2);
             String memoText = data.getString(3);
-            String id_photo = data.getString(4);
-            String uri_photo = data_photo.getString(1);
-            String memoDate = data.getString(1);
+            String uri_photo = data.getString(4);
+            String memoRating = data.getString(5);
 
 
-            String location = data.getString(3);
-            int memoId = Integer.parseInt(data.getString(4));
-
-            Boolean star = Boolean.parseBoolean(data.getString(5));
-
-            adapter.addItem(new RestaurantItem(restName,location,memoId,star));
+            adapter.addItem(new MemoListItem(memoId,memoDate,memoName, memoText,uri_photo, Integer.parseInt( memoRating)));
 
 
         }
@@ -113,10 +112,9 @@ public class MemoActivity extends AppCompatActivity {
         adapter.notifyDataSetChanged();
 
 
-        return recordCount;*/
+        return recordCount;
     }
 
-    private void viewMemo(int position) {
 
-    }
+
 }

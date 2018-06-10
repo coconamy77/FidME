@@ -86,7 +86,7 @@ public class MemoListItemView extends LinearLayout{
             for (int i=0;i<Integer.parseInt(data);i++) {
                 Log.d("real star",i+"");
                 memoRating[i].setImageResource(R.drawable.star_black);
-                Log.d("change star",i+"change");
+                Log.d("change star",i+"changed");
             }
         } else {
             throw new IllegalArgumentException();

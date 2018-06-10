@@ -39,7 +39,8 @@
         <activity android:name=".FindActivity" />
         <activity android:name=".RecommandActivity" />
         <activity android:name=".RecommandMapActivity" />
-        <activity android:name=".MemoNewActivity" />
+        <activity android:name=".MemoNewActivity"></activity>
+        <activity android:name=".MemoShowActivity"></activity>
     </application>
 
 </manifest>
