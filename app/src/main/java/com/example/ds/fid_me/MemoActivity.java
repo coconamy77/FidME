@@ -1,5 +1,6 @@
 package com.example.ds.fid_me;
 
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -15,9 +16,12 @@ import android.widget.ListView;
 
 public class MemoActivity extends AppCompatActivity {
 
-    MemoListAdapter mMemoListAdapter;
+    MemoListAdapter adapter;
     ListView mMemoListView;
     int mMemoCount = 0;
+
+
+    SQLiteHelper dbHelper;
 
 
     @Override
@@ -25,11 +29,23 @@ public class MemoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_memo);
 
-        Log.d("memolist", "on create ");
+        Log.d("sql", "get dbHelper ");
+
+        dbHelper =  new SQLiteHelper(this);
+
 
         mMemoListView = (ListView)findViewById(R.id.memoList);
-        mMemoListAdapter = new MemoListAdapter(this);
-        mMemoListView.setAdapter(mMemoListAdapter);
+        adapter = new MemoListAdapter(this);
+
+
+        loadMemoListData();
+
+
+
+        mMemoListView.setAdapter(adapter);
+
+
+
         mMemoListView.setOnItemClickListener(new OnItemClickListener() {
             public void onItemClick(AdapterView<?> arg0, View arg1,int position, long arg3){
                 viewMemo(position);
@@ -39,7 +55,6 @@ public class MemoActivity extends AppCompatActivity {
 
 
         ImageView newMemoBtn = (ImageView) findViewById(R.id.newMemoBtn);
-        Log.d("memolist", "on create, matching finished ");
 
 
         newMemoBtn.setOnClickListener(new OnClickListener() {
@@ -57,14 +72,48 @@ public class MemoActivity extends AppCompatActivity {
     private void loadMemoListData() {
 
         MemoListItem aItem = new MemoListItem("1", "2013-06-10 10:20","누들아한타이",
-                "맛있는 곳!",null, null,2
+                "맛있는 곳!",null,4
                 );
 
         Log.d("memolist", "first memo made, go adapter to add the item ");
 
-        mMemoListAdapter.addItem(aItem);
+        adapter.addItem(aItem);
 
-        mMemoListAdapter.notifyDataSetChanged();
+        adapter.notifyDataSetChanged();
+
+/*
+
+        int recordCount = -1;
+
+        Cursor data = dbHelper.getData("MEMO");
+        Cursor data_photo =  dbHelper.getData("PHOTO");
+
+        while (data.moveToNext()) {
+
+            String memoId = data.getString(0);
+            String memoDate = data.getString(1);
+            String memoName = data.getString(2);
+            String memoText = data.getString(3);
+            String id_photo = data.getString(4);
+            String uri_photo = data_photo.getString(1);
+            String memoDate = data.getString(1);
+
+
+            String location = data.getString(3);
+            int memoId = Integer.parseInt(data.getString(4));
+
+            Boolean star = Boolean.parseBoolean(data.getString(5));
+
+            adapter.addItem(new RestaurantItem(restName,location,memoId,star));
+
+
+        }
+
+
+        adapter.notifyDataSetChanged();
+
+
+        return recordCount;*/
     }
 
     private void viewMemo(int position) {

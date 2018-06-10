@@ -52,10 +52,10 @@ public class MemoListItemView extends LinearLayout{
         memoText = (TextView) findViewById(R.id.memoText);
 
         memoRating[0] = (ImageView) findViewById(R.id.star1);
-        memoRating[1] = (ImageView) findViewById(R.id.star1);
-        memoRating[2] = (ImageView) findViewById(R.id.star1);
-        memoRating[3] = (ImageView) findViewById(R.id.star1);
-        memoRating[4] = (ImageView) findViewById(R.id.star1);
+        memoRating[1] = (ImageView) findViewById(R.id.star2);
+        memoRating[2] = (ImageView) findViewById(R.id.star3);
+        memoRating[3] = (ImageView) findViewById(R.id.star4);
+        memoRating[4] = (ImageView) findViewById(R.id.star5);
     }
 
     public void setContents(int index, String data) {
@@ -81,9 +81,12 @@ public class MemoListItemView extends LinearLayout{
 
                 memoPhoto.setImageBitmap(bitmap);
             }
-        } else if(index==5){
+        } else if(index==4){
+            Log.d("star",data);
             for (int i=0;i<Integer.parseInt(data);i++) {
+                Log.d("real star",i+"");
                 memoRating[i].setImageResource(R.drawable.star_black);
+                Log.d("change star",i+"change");
             }
         } else {
             throw new IllegalArgumentException();

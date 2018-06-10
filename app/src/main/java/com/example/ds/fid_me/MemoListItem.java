@@ -18,16 +18,16 @@ public class MemoListItem {
     }
 
     public MemoListItem(String memoId, String memoDate, String memoName, String memoText,
-                        String id_photo, String uri_photo, int memoRating)    {
+                         String uri_photo, int memoRating)    {
         Log.d("memolist","construction");
         mId = memoId;
-        mData = new Object[6];
+        mData = new Object[5];
         mData[0] = memoDate;
         mData[1] = memoName;
         mData[2] = memoText;
-        mData[3] = id_photo;
-        mData[4] = uri_photo;
-        mData[5] = memoRating;
+        mData[3] = uri_photo;
+
+        mData[4] = memoRating;
         Log.d("memolist","construction finished");
 
     }
