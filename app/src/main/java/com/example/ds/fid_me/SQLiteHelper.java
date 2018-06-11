@@ -48,8 +48,8 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 
         createTable = "CREATE TABLE "+MEMO_TABLE+" ("
                 +" ID INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, "
-                +M_COL2+" TIMESTAMP DEFAULT CURRENT_TIMESTAMP, "
-               // +M_COL2+" TEXT, "
+                //+M_COL2+" TIMESTAMP DEFAULT CURRENT_TIMESTAMP, "
+                +M_COL2+" TEXT, "
                 +M_COL3+" TEXT, "
                 +M_COL4+" TEXT, "
                 +M_COL5+" TEXT, "
@@ -77,7 +77,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         database.execSQL(sql);
     }
 
-    public void addData(String tableName, String col3, String col4, String col5, String col6 ){
+    public void addData(String tableName, String col2,String col3, String col4, String col5, String col6 ){
         Log.d("sql","on addData()");
         String sql;
         SQLiteDatabase database = getWritableDatabase();
@@ -101,6 +101,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
             SQLiteStatement statement = database.compileStatement(sql);
             statement.clearBindings();
 
+            statement.bindString(2,col2);
             statement.bindString(3,col3);
             statement.bindString(4,col4);
             statement.bindString(5, col5);
@@ -142,9 +143,9 @@ public class SQLiteHelper extends SQLiteOpenHelper {
     }
 
 
-    public Cursor getItemId(String tableName, String name){
+    public Cursor getItemId(String tableName, String name, String date){
         SQLiteDatabase db = this.getWritableDatabase();
-        String query = "SELECT "+ COL1+" FROM "+ tableName+ " WHERE "+ COL3+"= '"+ name+"' ";
+        String query = "SELECT "+ COL1+" FROM "+ tableName+ " WHERE ("+ COL3+"= '"+ name+"') AND ("+COL2+" = '"+date+"')";
         Cursor data = db.rawQuery(query, null);
         return  data;
     }

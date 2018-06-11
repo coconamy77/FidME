@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 
@@ -20,6 +21,8 @@ public class MemoActivity extends AppCompatActivity {
     MemoListAdapter adapter;
     ListView mMemoListView;
     int mMemoCount = 0;
+    ImageView btnDel;
+    boolean isDel = false;
 
 
     SQLiteHelper dbHelper;
@@ -37,6 +40,16 @@ public class MemoActivity extends AppCompatActivity {
 
         mMemoListView = (ListView)findViewById(R.id.memoList);
         adapter = new MemoListAdapter(this);
+        btnDel = (ImageView) findViewById(R.id.delMemoBtn) ;
+        btnDel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                isDel = true;
+                btnDel.setImageResource(R.drawable.check);
+
+            }
+        });
 
 
         loadMemoListData();
@@ -49,7 +62,17 @@ public class MemoActivity extends AppCompatActivity {
 
         mMemoListView.setOnItemClickListener(new OnItemClickListener() {
             public void onItemClick(AdapterView<?> arg0, View arg1,int position, long arg3){
-                Intent innt = new Intent(this, )
+
+                if (isDel){
+                    MemoListItem item = (MemoListItem)adapter.getItem(position);
+                    dbHelper.delData("MEMO",item.getId()+"");
+                    adapter.notifyDataSetChanged();
+                    isDel = false;
+                    btnDel.setImageResource(R.drawable.trash);
+                    
+
+                }
+
             }
 
         });
@@ -58,7 +81,7 @@ public class MemoActivity extends AppCompatActivity {
         ImageView newMemoBtn = (ImageView) findViewById(R.id.newMemoBtn);
 
 
-        newMemoBtn.setOnClickListener(new OnClickListener() {
+        newMemoBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Log.d("MemoActivity","clicked");

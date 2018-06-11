@@ -120,9 +120,8 @@ public class MemoNewActivity extends AppCompatActivity {
 
 
         else {
-            dbHelper.addData("MEMO", name, memo, "", String.valueOf(rating));
+            dbHelper.addData("MEMO", date, name, memo, "", String.valueOf(rating));
         Log.d("sql","go add");
-            dbHelper.addData("MEMO", "누들아한타이", "맛있는 곳!:)", "", "3");
 
             Toast.makeText(getApplicationContext(), "저장되었습니다.", Toast.LENGTH_LONG).show();
 

@@ -1,6 +1,7 @@
 package com.example.ds.fid_me;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -75,6 +76,8 @@ public class MemoListAdapter extends BaseAdapter {
         itemView.setContents(2, (String)item.getData(2));
         itemView.setContents(3, (String)item.getData(3));
         itemView.setContents(4,item.getData(4)+"");
+
+        Log.d("date",(String)item.getData(0)+"");
 
 
         return itemView;
