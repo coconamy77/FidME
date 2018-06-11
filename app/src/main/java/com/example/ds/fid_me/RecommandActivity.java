@@ -1,130 +1,243 @@
 package com.example.ds.fid_me;
 
 import android.content.Intent;
-import android.location.Address;
-import android.location.Geocoder;
-import android.net.Uri;
-import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserFactory;
 
-import java.io.IOException;
-import java.util.List;
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.lang.reflect.Array;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
+import java.util.ArrayList;
 
-public class RecommandActivity extends FragmentActivity implements OnMapReadyCallback {
 
-    private GoogleMap mMap;
-    private Geocoder geocoder;
-    private Button button;
-    private EditText editText;
+public class RecommandActivity extends AppCompatActivity {
+
+    EditText edit;
+    TextView text;
+    Button btn;
+    ListView listView;
+
+    ArrayList<String> result_name_list;
+    ArrayList<String> result_address_list;
+    ArrayList<String> result_all_list;
+
+    String name = "";
+    String address = "";
+    String mapx = "";
+
+    SQLiteHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recommand);
 
-        Intent intent = getIntent();
-        String food = intent.getStringExtra("foodbtn");
+      //  edit = (EditText) findViewById(R.id.edit);
+        text = (TextView) findViewById(R.id.textView);
+        btn = (Button) findViewById(R.id.button);
 
-        editText = (EditText) findViewById(R.id.editText);
-        editText.setText(food);
+        listView = (ListView)findViewById(R.id.recommandListView);
 
-        button=(Button)findViewById(R.id.button);
+        dbHelper = new SQLiteHelper(this);
 
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        SupportMapFragment mapFragment = (SupportMapFragment) this.getSupportFragmentManager()
-                .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
+        result_name_list=new ArrayList<>();
+        result_address_list = new ArrayList<>();
+        result_all_list = new ArrayList<>();
+
+        showList();
+
     }
 
+    private void showList() {
 
-    /**
-     * Manipulates the map once available.
-     * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
-     * If Google Play services is not installed on the device, the user will be prompted to install
-     * it inside the SupportMapFragment. This method will only be triggered once the user has
-     * installed Google Play services and returned to the app.
-     */
-    @Override
-    public void onMapReady(final GoogleMap googleMap) {
-        mMap = googleMap;
-        geocoder = new Geocoder(this);
 
-        // 맵 터치 이벤트 구현 //
-        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener(){
+        new Thread(new Runnable() {
+
             @Override
-            public void onMapClick(LatLng point) {
-                MarkerOptions mOptions = new MarkerOptions();
-                // 마커 타이틀
-                mOptions.title("마커 좌표");
-                Double latitude = point.latitude; // 위도
-                Double longitude = point.longitude; // 경도
-                // 마커의 스니펫(간단한 텍스트) 설정
-                mOptions.snippet(latitude.toString() + ", " + longitude.toString());
-                // LatLng: 위도 경도 쌍을 나타냄
-                mOptions.position(new LatLng(latitude, longitude));
-                // 마커(핀) 추가
-                googleMap.addMarker(mOptions);
-            }
-        });
-        ////////////////////
+            public void run() {
 
-        // 버튼 이벤트
-        button.setOnClickListener(new Button.OnClickListener(){
-            @Override
-            public void onClick(View v){
-                String str=editText.getText().toString();
-                List<Address> addressList = null;
+                // String keyword = edit.getText().toString();
+                Intent intent = getIntent();
+                String keyword = "도봉구" +intent.getStringExtra("foodName");
+
+                String clientId = "Bxn8VZxrR7tA6L6oV9Fa";//애플리케이션 클라이언트 아이디값";
+                String clientSecret = "Uf8Ldu5n8p";//애플리케이션 클라이언트 시크릿값";
+                final StringBuffer buffer = new StringBuffer();
+
+
                 try {
-                    // editText에 입력한 텍스트(주소, 지역, 장소 등)을 지오 코딩을 이용해 변환
-                    addressList = geocoder.getFromLocationName(
-                            str, // 주소
-                            10); // 최대 검색 결과 개수
-                }
-                catch (IOException e) {
+
+                    result_name_list.clear();
+                    result_address_list.clear();
+                    result_all_list.clear();
+
+                    String apiURL = "https://openapi.naver.com/v1/search/local.xml?query=" + keyword +"&display=20";
+
+                    URL url = new URL(apiURL);
+                    HttpURLConnection con = (HttpURLConnection) url.openConnection();
+                    con.setRequestMethod("GET");
+                    con.setRequestProperty("X-Naver-Client-Id", clientId);
+                    con.setRequestProperty("X-Naver-Client-Secret", clientSecret);
+
+                    InputStream is= con.getInputStream();
+
+                    XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
+                    XmlPullParser xpp = factory.newPullParser();
+                    xpp.setInput(new InputStreamReader(is, "UTF-8"));
+                    String tag;
+
+                    xpp.next();
+                    int eventType = xpp.getEventType();
+
+                    while (eventType != XmlPullParser.END_DOCUMENT) {
+                        switch (eventType) {
+                            case XmlPullParser.START_DOCUMENT:
+                                buffer.append("검색 시작\n\n");
+                                break;
+
+
+                            case XmlPullParser.START_TAG:
+
+                                tag = xpp.getName();    //테그 이름 얻어오기
+
+                                if (tag.equals("item")) ;// 첫번째 검색결과
+                                else if (tag.equals("title")) {
+
+                                    buffer.append("업소명 : ");
+                                    xpp.next();
+                                    buffer.append(xpp.getText()); //title 요소의 TEXT 읽어와서 문자열버퍼에 추가
+                                    buffer.append("\n");          //줄바꿈 문자 추가
+                                    name = xpp.getText();
+                                    result_name_list.add(name);
+
+
+                                } else if (tag.equals("category")) {
+
+                                    buffer.append("업종 : ");
+                                    xpp.next();
+                                    buffer.append(xpp.getText()); //category 요소의 TEXT 읽어와서 문자열버퍼에 추가
+                                    buffer.append("\n");          //줄바꿈 문자 추가
+
+                                } else if (tag.equals("description")) {
+                                    buffer.append("세부설명 :");
+                                    xpp.next();
+                                    buffer.append(xpp.getText()); //description 요소의 TEXT 읽어와서 문자열버퍼에 추가
+                                    buffer.append("\n");          //줄바꿈 문자 추가
+
+                                } else if (tag.equals("telephone")) {
+
+                                    buffer.append("연락처 :");
+                                    xpp.next();
+                                    buffer.append(xpp.getText()); //telephone 요소의 TEXT 읽어와서 문자열버퍼에 추가
+                                    buffer.append("\n");          //줄바꿈 문자 추가
+
+                                } else if (tag.equals("address")) {
+
+                                    buffer.append("주소 :");
+                                    xpp.next();
+                                    buffer.append(xpp.getText()); //address 요소의 TEXT 읽어와서 문자열버퍼에 추가
+                                    buffer.append("\n");          //줄바꿈 문자 추가
+
+                                    address = xpp.getText();
+                                    result_address_list.add(address);
+                                    result_all_list.add(name + ':' +'\n'+ address);
+
+                                }
+
+                                break;
+
+                            case XmlPullParser.TEXT:
+                                break;
+
+                            case XmlPullParser.END_TAG:
+                                tag = xpp.getName();    //테그 이름 얻어오기
+                                if (tag.equals("item")) buffer.append("\n"); // 첫번째 검색결과종료..줄바꿈
+                                break;
+
+                        }
+                        eventType = xpp.next();
+                    }
+                } catch (Exception e) {
+                    // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
+                buffer.append("검색 종료\n");
+                System.out.println(buffer.toString());
 
-                System.out.println(addressList.get(0).toString());
-                // 콤마를 기준으로 split
-                String []splitStr = addressList.get(0).toString().split(",");
-                String address = splitStr[0].substring(splitStr[0].indexOf("\"") + 1,splitStr[0].length() - 2); // 주소
-                System.out.println(address);
 
-                String latitude = splitStr[10].substring(splitStr[10].indexOf("=") + 1); // 위도
-                String longitude = splitStr[12].substring(splitStr[12].indexOf("=") + 1); // 경도
-                System.out.println(latitude);
-                System.out.println(longitude);
 
-                // 좌표(위도, 경도) 생성
-                LatLng point = new LatLng(Double.parseDouble(latitude), Double.parseDouble(longitude));
-                // 마커 생성
-                MarkerOptions mOptions2 = new MarkerOptions();
-                mOptions2.title("search result");
-                mOptions2.snippet(address);
-                mOptions2.position(point);
-                // 마커 추가
-                mMap.addMarker(mOptions2);
-                // 해당 좌표로 화면 줌
-                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(point,15));
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(),R.layout.recommand_listitem, R.id.textname, result_all_list);
+                        listView.setAdapter(adapter);
+
+                        // 항목 클릭하면?
+                        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+
+
+                                Intent intent = new Intent(getBaseContext(), RecommandMapActivity.class);
+
+
+                                String name = result_name_list.get(i+1);
+                                String address = result_address_list.get(i);
+
+                                Log.d("sql","go to dbHelper");
+                                dbHelper.addData("HISTORY","",name, address,"-1","false");
+
+                                Toast.makeText(getApplicationContext(),"history에 저장되었습니다.", Toast.LENGTH_LONG).show();
+
+
+                                intent.putExtra("name", name);
+                                intent.putExtra( "address", address);
+
+
+
+                                startActivity(intent);
+
+
+                            }
+                        });
+                    }
+                });
+
+
             }
-        });
-        ////////////////////
+        }).start();
 
-        // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+    }
+
+    // 다시하기 버튼 누르면?
+    public void mOnclick(View view) {
+        Intent intent = new Intent(this, FindActivity.class);
+        startActivity(intent);
+        finish();
+
     }
 }
+
+
+

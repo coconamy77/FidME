@@ -1,30 +1,49 @@
-<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="10dp">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout
+
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_weight="8">
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:weightSum="10">
 
-        <EditText
-            android:id="@+id/editText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Enter the Address." />
+        <TextView android:id="@+id/txtView"
+
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textSize="28sp"
+            android:text="원하시는 음식점이 있나요?"
+            android:textColor="#000000"/>
+
 
         <Button
             android:id="@+id/button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Search" />
+            android:onClick="mOnclick"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="다시 하기"
+            android:textSize="12sp" />
 
 
-    <fragment
-
-        android:id="@+id/map"
-        class="com.google.android.gms.maps.MapFragment"
-        android:layout_width="match_parent"
-        android:layout_height="252dp"
-        android:layout_weight="0.8" />
 
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <ListView
+            android:id="@+id/recommandListView"
+            android:layout_width="match_parent"
+
+            android:layout_height="match_parent" />
+    </LinearLayout>
+
+</LinearLayout>
+

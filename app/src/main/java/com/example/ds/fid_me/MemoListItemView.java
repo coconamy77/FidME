@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -51,13 +52,14 @@ public class MemoListItemView extends LinearLayout{
         memoText = (TextView) findViewById(R.id.memoText);
 
         memoRating[0] = (ImageView) findViewById(R.id.star1);
-        memoRating[1] = (ImageView) findViewById(R.id.star1);
-        memoRating[2] = (ImageView) findViewById(R.id.star1);
-        memoRating[3] = (ImageView) findViewById(R.id.star1);
-        memoRating[4] = (ImageView) findViewById(R.id.star1);
+        memoRating[1] = (ImageView) findViewById(R.id.star2);
+        memoRating[2] = (ImageView) findViewById(R.id.star3);
+        memoRating[3] = (ImageView) findViewById(R.id.star4);
+        memoRating[4] = (ImageView) findViewById(R.id.star5);
     }
 
     public void setContents(int index, String data) {
+        Log.d("memolist","set contents");
         if (index == 0) {
             memoDate.setText(data);
         } else if (index == 1) {
@@ -71,17 +73,21 @@ public class MemoListItemView extends LinearLayout{
                 if (bitmap != null) {
                     bitmap.recycle();
                 }
-
-                BitmapFactory.Options options = new BitmapFactory.Options();
-                options.inSampleSize = 8;
-                //여기 오류 나요 ㅠㅠ
-                //bitmap = BitmapFactory.decodeFile(BasicInfo.FOLDER_PHOTO + data, options);
-
+                byte[] image = data.getBytes();
+                bitmap = BitmapFactory.decodeByteArray(image,0,image.length);
                 memoPhoto.setImageBitmap(bitmap);
+               // BitmapFactory.Options options = new BitmapFactory.Options();
+                //options.inSampleSize = 8;
+               // bitmap = BitmapFactory.decodeFile( + data, options);
+
+                //memoPhoto.setImageBitmap(bitmap);
             }
-        } else if(index==5){
+        } else if(index==4){
+            Log.d("star",data);
             for (int i=0;i<Integer.parseInt(data);i++) {
+                Log.d("real star",i+"");
                 memoRating[i].setImageResource(R.drawable.star_black);
+                Log.d("change star",i+"changed");
             }
         } else {
             throw new IllegalArgumentException();

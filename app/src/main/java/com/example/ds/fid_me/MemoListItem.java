@@ -1,5 +1,7 @@
 package com.example.ds.fid_me;
 
+import android.util.Log;
+
 /**
  * Created by DS on 2018-05-25.
  */
@@ -9,6 +11,7 @@ public class MemoListItem {
     private Object[] mData;
     private String mId;
     private boolean mSelectable = true;
+    private byte[] img;
 
     public MemoListItem(String itemId, Object[] obj) {
         mId = itemId;
@@ -16,15 +19,17 @@ public class MemoListItem {
     }
 
     public MemoListItem(String memoId, String memoDate, String memoName, String memoText,
-                        String id_photo, String uri_photo, int memoRating)    {
+                         String uri_photo, int memoRating)    {
+        Log.d("memolist","construction");
         mId = memoId;
-        mData = new Object[6];
+        mData = new Object[5];
         mData[0] = memoDate;
         mData[1] = memoName;
         mData[2] = memoText;
-        mData[3] = id_photo;
-        mData[4] = uri_photo;
-        mData[5] = memoRating;
+        mData[3] = uri_photo;
+
+        mData[4] = memoRating;
+        Log.d("memolist","construction finished");
 
     }
 
@@ -46,7 +51,7 @@ public class MemoListItem {
     }
 
 
-    public Object[] getData() {
+    public Object[] getAllData() {
         return mData;
     }
 
@@ -64,7 +69,7 @@ public class MemoListItem {
 
     public int compareTo(MemoListItem other) {
         if (mData != null) {
-            Object[] otherData = other.getData();
+            Object[] otherData = other.getAllData();
             if (mData.length == otherData.length) {
                 for (int i = 0; i < mData.length; i++) {
                     if (!mData[i].equals(otherData[i])) {
