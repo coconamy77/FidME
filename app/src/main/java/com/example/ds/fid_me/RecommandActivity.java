@@ -41,7 +41,6 @@ public class RecommandActivity extends AppCompatActivity {
 
     String name = "";
     String address = "";
-    String mapx = "";
 
     SQLiteHelper dbHelper;
 
@@ -197,8 +196,6 @@ public class RecommandActivity extends AppCompatActivity {
                             @Override
                             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-
-
                                 Intent intent = new Intent(getBaseContext(), RecommandMapActivity.class);
 
 
@@ -211,14 +208,10 @@ public class RecommandActivity extends AppCompatActivity {
                                 String id = dbHelper.getItemId("HISTORY",name).toString();
                                 Toast.makeText(getApplicationContext(),id, Toast.LENGTH_LONG).show();
 
-
                                 intent.putExtra("name", name);
                                 intent.putExtra( "address", address);
 
-
-
                                 startActivity(intent);
-
 
                             }
                         });
