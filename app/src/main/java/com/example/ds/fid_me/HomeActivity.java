@@ -233,4 +233,9 @@ public class HomeActivity extends AppCompatActivity {
         intent = new Intent(getApplicationContext(),FindActivity.class);
         startActivity(intent);
     }
+
+    public void onBtnChat(View view) {
+        intent = new Intent(getApplicationContext(),StartActivity.class);
+        startActivity(intent);
+    }
 }

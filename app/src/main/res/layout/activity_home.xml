@@ -118,6 +118,14 @@
             android:onClick="onBtnHistory"
             app:srcCompat="@drawable/history" />
 
+        <ImageView
+            android:id="@+id/chat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="onBtnChat"
+            app:srcCompat="@drawable/chat" />
+
 
     </LinearLayout>
 

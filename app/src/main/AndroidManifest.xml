@@ -19,7 +19,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MemoActivity"></activity>
+        <activity android:name=".MemoActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -39,7 +39,12 @@
         <activity android:name=".FindActivity" />
         <activity android:name=".RecommandActivity" />
         <activity android:name=".RecommandMapActivity" />
+        <activity android:name=".StartActivity" />
+        <activity android:name=".ChatActivity" />
+        <activity android:name=".ChataddActivity"></activity>
+
         <activity android:name=".MemoNewActivity"></activity>
+
     </application>
 
 </manifest>

@@ -41,7 +41,6 @@ public class RecommandActivity extends AppCompatActivity {
 
     String name = "";
     String address = "";
-    String mapx = "";
 
     SQLiteHelper dbHelper;
 
@@ -197,8 +196,6 @@ public class RecommandActivity extends AppCompatActivity {
                             @Override
                             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-
-
                                 Intent intent = new Intent(getBaseContext(), RecommandMapActivity.class);
 
 
@@ -210,14 +207,10 @@ public class RecommandActivity extends AppCompatActivity {
 
                                 Toast.makeText(getApplicationContext(),"history에 저장되었습니다.", Toast.LENGTH_LONG).show();
 
-
                                 intent.putExtra("name", name);
                                 intent.putExtra( "address", address);
 
-
-
                                 startActivity(intent);
-
 
                             }
                         });
