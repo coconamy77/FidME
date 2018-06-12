@@ -75,9 +75,11 @@
             android:layout_height="wrap_content"
             android:layout_gravity="right"
             android:text="0000년 00월 00일"
+            android:fontFamily="@font/afont"
+
             android:textColor="#000000"
 
-            android:textSize="15sp" />
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/memoName"
@@ -86,8 +88,8 @@
 
             android:text="식당명"
             android:textColor="#000000"
-
-            android:textSize="15sp" />
+            android:fontFamily="@font/afont"
+            android:textSize="17sp" />
 
         <TextView
             android:id="@+id/memoText"
@@ -95,8 +97,8 @@
             android:layout_height="match_parent"
             android:text="MEMO"
             android:textColor="#000000"
-
-            android:textSize="20sp" />
+            android:fontFamily="@font/afont"
+            android:textSize="22sp" />
 
 
 

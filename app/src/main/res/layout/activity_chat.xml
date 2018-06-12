@@ -32,12 +32,14 @@
                 android:id="@+id/chat_sent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="send" />
+                android:text="send"
+                android:fontFamily="@font/afont"/>
 
             <EditText
                 android:id="@+id/chat_edit"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/afont" />
         </LinearLayout>
 
     </LinearLayout>

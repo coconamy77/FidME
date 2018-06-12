@@ -25,7 +25,8 @@
             android:text="HISTORY"
             android:gravity ="center"
             android:textColor="#000000"
-            android:textSize="32sp"
+            android:textSize="36sp"
+            android:fontFamily="@font/afont"
             />
 
 
@@ -50,6 +51,7 @@
         android:layout_marginLeft="16dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:fontFamily="@font/afont"
          />
 
 </LinearLayout>

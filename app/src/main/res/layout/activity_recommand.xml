@@ -18,6 +18,7 @@
             android:layout_height="match_parent"
             android:textSize="28sp"
             android:text="원하시는 음식점이 있나요?"
+            android:fontFamily="@font/afont"
             android:textColor="#000000"/>
 
 
@@ -27,7 +28,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="다시 하기"
-            android:textSize="12sp" />
+            android:fontFamily="@font/afont"
+            android:textSize="20sp" />
 
 
 
@@ -41,7 +43,7 @@
         <ListView
             android:id="@+id/recommandListView"
             android:layout_width="match_parent"
-
+            android:fontFamily="@font/afont"
             android:layout_height="match_parent" />
     </LinearLayout>
 
