@@ -203,10 +203,9 @@ public class RecommandActivity extends AppCompatActivity {
                                 String address = result_address_list.get(i);
 
                                 Log.d("sql","go to dbHelper");
-                                dbHelper.addData("HISTORY",name, address,"-1","false");
+                                dbHelper.addData("HISTORY","",name, address,"-1","false");
 
-                                String id = dbHelper.getItemId("HISTORY",name).toString();
-                                Toast.makeText(getApplicationContext(),id, Toast.LENGTH_LONG).show();
+                                Toast.makeText(getApplicationContext(),"history에 저장되었습니다.", Toast.LENGTH_LONG).show();
 
                                 intent.putExtra("name", name);
                                 intent.putExtra( "address", address);

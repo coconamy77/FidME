@@ -42,6 +42,9 @@
         <activity android:name=".StartActivity" />
         <activity android:name=".ChatActivity" />
         <activity android:name=".ChataddActivity"></activity>
+
+        <activity android:name=".MemoNewActivity"></activity>
+
     </application>
 
 </manifest>
