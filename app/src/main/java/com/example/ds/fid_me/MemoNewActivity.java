@@ -34,8 +34,8 @@ public class MemoNewActivity extends AppCompatActivity {
 
     final int REQUEST_CODE_GALLERY = 999;
 
-    String date, name, memo;
-    Object mPhoto;
+    String date, name, memo,mPhoto;
+
 
 
     @Override
@@ -177,7 +177,7 @@ public class MemoNewActivity extends AppCompatActivity {
         date = newDate.getText().toString();
         name = newName.getText().toString();
         memo = newMemo.getText().toString();
-        mPhoto = imageViewToByte(photo);
+       // mPhoto = imageViewToString(photo);
 
         if (name.isEmpty()|date.isEmpty()|memo.isEmpty()|rating==-1){
             Toast.makeText(getApplicationContext(),"항목을 모두 입력해주세요.", Toast.LENGTH_LONG).show();
@@ -185,7 +185,7 @@ public class MemoNewActivity extends AppCompatActivity {
 
 
         else {
-            dbHelper.addData("MEMO", date, name, memo, (String)mPhoto , String.valueOf(rating));
+            dbHelper.addData("MEMO", date, name, memo, mPhoto , String.valueOf(rating));
         Log.d("sql","go add");
 
             Toast.makeText(getApplicationContext(), "저장되었습니다.", Toast.LENGTH_LONG).show();
@@ -199,12 +199,14 @@ public class MemoNewActivity extends AppCompatActivity {
 
     }
 
-    private byte[] imageViewToByte(ImageView image) {
+    private String imageViewToString(ImageView image) {
         Bitmap bitmap = ((BitmapDrawable)image.getDrawable()).getBitmap();
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG,100,stream);
         byte[] byteArray = stream.toByteArray();
-        return  byteArray;
+
+        String stringPhoto = new String(byteArray,0,byteArray.length);
+        return  stringPhoto;
     }
 
 

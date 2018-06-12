@@ -211,6 +211,7 @@ public class HomeActivity extends AppCompatActivity {
 
     public void onBtnMap(View view) {
         intent = new Intent(getApplicationContext(),MapActivity.class);
+        intent.putExtra("from","home");
         startActivity(intent);
     }
 

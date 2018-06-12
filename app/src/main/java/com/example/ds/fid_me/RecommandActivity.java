@@ -209,6 +209,7 @@ public class RecommandActivity extends AppCompatActivity {
 
                                 intent.putExtra("name", name);
                                 intent.putExtra( "address", address);
+                                intent.putExtra("from", "recommand");
 
                                 startActivity(intent);
 

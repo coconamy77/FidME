@@ -62,6 +62,7 @@ public class MapActivity extends AppCompatActivity
     private GoogleApiClient mGoogleApiClient = null;
     private GoogleMap mGoogleMap = null;
     private Marker currentMarker = null;
+    Intent intent;
 
     private static final String TAG = "googlemap_example";
     private static final int GPS_ENABLE_REQUEST_CODE = 2001;
@@ -94,6 +95,8 @@ public class MapActivity extends AppCompatActivity
                 WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         setContentView(R.layout.activity_map);
 
+        intent = getIntent();
+        dbHelper = new SQLiteHelper(this);
 
         previous_marker = new ArrayList<Marker>();
 
@@ -248,15 +251,22 @@ public class MapActivity extends AppCompatActivity
             public void onInfoWindowClick(Marker marker) {
 
 
-                Intent intent = new Intent(getBaseContext(), HistoryActivity.class);
+                String from = intent.getStringExtra("from");
 
-                String title = marker.getTitle();
-                String address = marker.getSnippet();
+                if (from.equals("home")) {
 
-                intent.putExtra("title", title);
-                intent.putExtra( "address", address);
+                    String title = marker.getTitle();
+                    String address = marker.getSnippet();
 
-                startActivity(intent);
+
+                    Log.d("sql","go to dbHelper");
+                    dbHelper.addData("HISTORY","",title, address,"-1","false");
+
+                    Toast.makeText(getApplicationContext(),"history에 저장되었습니다.", Toast.LENGTH_LONG).show();
+
+
+
+                }
             }
         });
     }
