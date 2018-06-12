@@ -73,13 +73,14 @@ public class MemoListItemView extends LinearLayout{
                 if (bitmap != null) {
                     bitmap.recycle();
                 }
-
-                BitmapFactory.Options options = new BitmapFactory.Options();
-                options.inSampleSize = 8;
-                //여기 오류 나요 ㅠㅠ
-                //bitmap = BitmapFactory.decodeFile(BasicInfo.FOLDER_PHOTO + data, options);
-
+                byte[] image = data.getBytes();
+                bitmap = BitmapFactory.decodeByteArray(image,0,image.length);
                 memoPhoto.setImageBitmap(bitmap);
+               // BitmapFactory.Options options = new BitmapFactory.Options();
+                //options.inSampleSize = 8;
+               // bitmap = BitmapFactory.decodeFile( + data, options);
+
+                //memoPhoto.setImageBitmap(bitmap);
             }
         } else if(index==4){
             Log.d("star",data);

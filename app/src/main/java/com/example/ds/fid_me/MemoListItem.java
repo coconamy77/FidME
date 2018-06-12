@@ -11,6 +11,7 @@ public class MemoListItem {
     private Object[] mData;
     private String mId;
     private boolean mSelectable = true;
+    private byte[] img;
 
     public MemoListItem(String itemId, Object[] obj) {
         mId = itemId;
