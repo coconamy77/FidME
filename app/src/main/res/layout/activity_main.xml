@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/mainback"
     >
 
     <ImageView
@@ -12,7 +13,6 @@
         android:layout_height="166dp"
         android:layout_marginBottom="8dp"
         android:layout_marginTop="8dp"
-
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
@@ -21,18 +21,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.324"
+
         app:srcCompat="@drawable/logo" />
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="112dp"
-        android:layout_height="44dp"
+        android:layout_width="127dp"
+        android:layout_height="46dp"
         android:layout_marginBottom="8dp"
         android:layout_marginTop="8dp"
-        android:text="FID ME"
         android:fontFamily="@font/afont"
+        android:text="FID ME"
         android:textColor="#000000"
         android:textSize="39sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
