@@ -57,13 +57,7 @@ public class HistoryActivity extends AppCompatActivity{
 
         listView.setAdapter(adapter);
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                RestaurantItem item = (RestaurantItem) adapter.getItem(i);
-                //구글 상세 정보 조회 이동
-            }
-        });
+
 
     }
 
