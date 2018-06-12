@@ -3,7 +3,9 @@
     android:orientation="horizontal" android:layout_width="match_parent"
     android:layout_height="80dp"
     android:id="@+id/findLayout"
-    android:gravity="center">
+    android:gravity="center"
+    android:background="#FAECC5"
+    >
 
 
 
@@ -13,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:paddingHorizontal="100dp"
+
         android:textSize="30sp"
         android:textColor="#000000"
         android:textStyle="bold"
