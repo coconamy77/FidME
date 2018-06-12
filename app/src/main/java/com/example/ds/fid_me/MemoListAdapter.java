@@ -68,7 +68,7 @@ public class MemoListAdapter extends BaseAdapter {
             itemView = new MemoListItemView(mContext);
        // } else {
        //     itemView = (MemoListItemView)convertView;
-      //  }
+      //  }     ㅗ퍼ㅓㅏㅣㅜ;ㅣㅓㅣ
         MemoListItem item = mItems.get(position);
         // set current item data
         itemView.setContents(0, (String)item.getData(0));
