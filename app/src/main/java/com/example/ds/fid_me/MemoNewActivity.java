@@ -3,6 +3,7 @@ package com.example.ds.fid_me;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -31,10 +32,11 @@ public class MemoNewActivity extends AppCompatActivity {
     ImageView photo;
     SQLiteHelper dbHelper;
     int rating=-1;
+    Intent intent;
 
     final int REQUEST_CODE_GALLERY = 999;
 
-    String date, name, memo,mPhoto;
+    String date, name, memo,mPhoto="";
 
 
 
@@ -53,6 +55,7 @@ public class MemoNewActivity extends AppCompatActivity {
         newMemo = (EditText)findViewById(R.id.memoText);
         btnCancel = (Button)findViewById(R.id.btnDelete);
         photo = (ImageView)findViewById(R.id.memoPhoto);
+        intent=getIntent();
 
         photo.setOnClickListener(new View.OnClickListener(){
 
@@ -60,8 +63,7 @@ public class MemoNewActivity extends AppCompatActivity {
             public void onClick(View v) {
                 ActivityCompat.requestPermissions(
                         MemoNewActivity.this,
-                        new String[] {Manifest.permission.READ_EXTERNAL_STORAGE},
-                    REQUEST_CODE_GALLERY
+                        new String[] {Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_CODE_GALLERY
                 );
             }
         });
@@ -179,6 +181,9 @@ public class MemoNewActivity extends AppCompatActivity {
         memo = newMemo.getText().toString();
        // mPhoto = imageViewToString(photo);
 
+
+
+
         if (name.isEmpty()|date.isEmpty()|memo.isEmpty()|rating==-1){
             Toast.makeText(getApplicationContext(),"항목을 모두 입력해주세요.", Toast.LENGTH_LONG).show();
         }
@@ -186,17 +191,25 @@ public class MemoNewActivity extends AppCompatActivity {
 
         else {
             dbHelper.addData("MEMO", date, name, memo, mPhoto , String.valueOf(rating));
-        Log.d("sql","go add");
+            Log.d("sql","go add");
 
             Toast.makeText(getApplicationContext(), "저장되었습니다.", Toast.LENGTH_LONG).show();
 
-            Intent intent = new Intent(this, MemoActivity.class);
 
 
-            startActivity(intent);
-            finish();
+           if (intent.getStringExtra("from").equals("history")){
+               int restId = intent.getIntExtra("id",-1);
+                Cursor data = dbHelper.getItemId("MEMO",name,date);
+                int itemId = -1;
+                while (data.moveToNext()){
+                    itemId = data.getInt(0);
+                }
+
+                dbHelper.updateMemo(restId,itemId);
+
+           }
+           finish();
        }
-
     }
 
     private String imageViewToString(ImageView image) {

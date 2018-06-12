@@ -7,6 +7,7 @@ import android.location.Geocoder;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -23,6 +24,8 @@ public class RecommandMapActivity extends AppCompatActivity implements OnMapRead
 
     private GoogleMap mGoogleMap = null;
     List<Address> address;
+    Intent intent;
+    SQLiteHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +36,10 @@ public class RecommandMapActivity extends AppCompatActivity implements OnMapRead
         MapFragment mapFragment = (MapFragment)fragmentManager
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        intent = getIntent();
+
+        dbHelper = new SQLiteHelper(this);
 
     }
 
@@ -74,6 +81,24 @@ public class RecommandMapActivity extends AppCompatActivity implements OnMapRead
 
             @Override
             public void onInfoWindowClick(Marker marker) {
+
+                String from = intent.getStringExtra("from");
+
+                if (from.equals("home")) {
+
+                    String title = marker.getTitle();
+                    String address = marker.getSnippet();
+
+
+                    Log.d("sql","go to dbHelper");
+                    dbHelper.addData("HISTORY","",title, address,"-1","false");
+
+                    Toast.makeText(getApplicationContext(),"history에 저장되었습니다.", Toast.LENGTH_LONG).show();
+
+
+
+                }
+
 
 
                 Intent intent = new Intent(getBaseContext(), HistoryActivity.class);

@@ -88,6 +88,7 @@ public class MemoActivity extends AppCompatActivity {
                 Log.d("newMemo"," go new memo");
                 Intent intent = new Intent(getApplicationContext(),MemoNewActivity.class);
 
+                intent.putExtra("from","memo");
                 startActivity(intent);
 
             }

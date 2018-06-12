@@ -8,6 +8,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteStatement;
 import android.util.Log;
 
+import java.util.Date;
+
 /**
  * Created by DS on 2018-06-01.
  */
@@ -145,13 +147,22 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 
     public Cursor getItemId(String tableName, String name, String date){
         SQLiteDatabase db = this.getWritableDatabase();
-        String query = "SELECT "+ COL1+" FROM "+ tableName+ " WHERE ("+ COL3+"= '"+ name+"') AND ("+COL2+" = '"+date+"')";
+        String query = "SELECT "+ COL1+" FROM "+ tableName+ " WHERE ("+ COL3+"= '"+ name+"') AND ("+COL2+" = '"+ date+"')";
         Cursor data = db.rawQuery(query, null);
         return  data;
     }
 
-    public void updateRest(String name){
-        //업데이트 하는것... 필요할까...? 최신 순으로 할 때? 음..
+    public void updateMemo( int restId, int memoId){
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "UPDATE " + HISTORY_TABLE+" SET "+COL5+" = '"+memoId+"' WHERE "+COL1 +" = '"+restId+"'";
+        db.execSQL( query);
+    }
+
+    public void updateStar(int restId, String star){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "UPDATE " + HISTORY_TABLE+" SET "+COL6+" = '"+star+"' WHERE "+COL1 +" = '"+restId+"'";
+        db.execSQL( query);
     }
 
 

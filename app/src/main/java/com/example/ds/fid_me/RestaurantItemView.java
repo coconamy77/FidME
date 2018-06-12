@@ -4,6 +4,7 @@ import android.content.Context;
 import android.provider.ContactsContract;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -18,6 +19,8 @@ public class RestaurantItemView extends LinearLayout {
 
     TextView restName;
     ImageView restStar,memoBtn, mapBtn;
+
+    SQLiteHelper dbHelper;
 
 
 
@@ -36,6 +39,8 @@ public class RestaurantItemView extends LinearLayout {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.restaurants, this, true);
 
+
+
         restName = (TextView) findViewById(R.id.restName);
         restStar = (ImageView) findViewById(R.id.restStar);
         memoBtn = (ImageView)findViewById(R.id.memoBtn);
@@ -43,6 +48,16 @@ public class RestaurantItemView extends LinearLayout {
 
         memoBtn.setImageResource(R.drawable.memo);
         mapBtn.setImageResource(R.drawable.map);
+
+        restStar.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+
     }
 
     public void setName(String name){
@@ -50,9 +65,12 @@ public class RestaurantItemView extends LinearLayout {
     }
 
     public void setRestStar(boolean star){
-        if (!star) restStar.setImageResource(R.drawable.star_black);
+        if (star) restStar.setImageResource(R.drawable.star_black);
         else restStar.setImageResource(R.drawable.star);
     }
+
+
+
 
 
 }

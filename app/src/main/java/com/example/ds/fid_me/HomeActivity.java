@@ -186,6 +186,7 @@ public class HomeActivity extends AppCompatActivity {
 
                         intent.putExtra("name", name);
                         intent.putExtra( "address", address);
+                        intent.putExtra("from","home");
 
                         startActivity(intent);
 

@@ -8,14 +8,24 @@ public class RestaurantItem {
 
     String name;
     boolean star;
-    int memoId;
+    int memoId, restId;
     String address;
 
-    public RestaurantItem(String name, String address, int memoId, boolean star ){
+
+    public RestaurantItem(int restId,String name, String address, int memoId, boolean star ){
+        this.restId = restId;
         this.name = name;
         this.star = star;
         this.memoId = memoId;
         this.address = address;
+    }
+
+    public int getRestId() {
+        return restId;
+    }
+
+    public void setRestId(int restId) {
+        this.restId = restId;
     }
 
     public String getName() {
