@@ -69,7 +69,7 @@ public class MemoActivity extends AppCompatActivity {
                     adapter.notifyDataSetChanged();
                     isDel = false;
                     btnDel.setImageResource(R.drawable.trash);
-                    
+
 
                 }
 
