@@ -16,7 +16,7 @@ public class BookMarkActivity extends AppCompatActivity {
     SQLiteHelper dbHelper;
     ListView listView;
     RestaurantAdapter adapter;
-    String restName, location ;
+    String restName, location, nam, loc ;
 
     public static final int REQUEST_CODE_MEMO = 101;
 
@@ -102,6 +102,8 @@ public class BookMarkActivity extends AppCompatActivity {
             final RestaurantItem item = items.get(i);
             view.setName(item.getName());
             view.setRestStar(item.isStar());
+            nam = item.getName();
+            loc = item.getAddress();
 
             view.memoBtn.setOnClickListener(new View.OnClickListener(){
 
@@ -128,8 +130,8 @@ public class BookMarkActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(getApplicationContext(), RecommandMapActivity.class);
-                    intent.putExtra("name",restName);
-                    intent.putExtra("address", location);
+                    intent.putExtra("name",nam);
+                    intent.putExtra("address", loc);
 
                     startActivity(intent);
                 }

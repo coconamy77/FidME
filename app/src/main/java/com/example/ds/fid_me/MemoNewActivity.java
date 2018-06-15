@@ -195,7 +195,8 @@ public class MemoNewActivity extends AppCompatActivity {
 
             Toast.makeText(getApplicationContext(), "저장되었습니다.", Toast.LENGTH_LONG).show();
 
-
+            Intent in = new Intent(getApplicationContext(), MemoActivity.class);
+            startActivity(in);
 
            if (intent.getStringExtra("from").equals("history")){
                int restId = intent.getIntExtra("id",-1);
@@ -206,9 +207,10 @@ public class MemoNewActivity extends AppCompatActivity {
                 }
 
                 dbHelper.updateMemo(restId,itemId);
+                finish();
 
            }
-           finish();
+
        }
     }
 

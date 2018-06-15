@@ -31,6 +31,7 @@ public class HistoryActivity extends AppCompatActivity{
     String restName, location ;
     private String tableName = "HISTORY";
     private static final int REQUEST_CODE_MEMO=101;
+    String nam, loc;
 
 
 
@@ -145,6 +146,8 @@ public class HistoryActivity extends AppCompatActivity{
             final RestaurantItem item = items.get(i);
             view.setName(item.getName());
             view.setRestStar(item.isStar());
+            loc = item.getAddress();
+            nam = item.getName();
 
             view.memoBtn.setOnClickListener(new View.OnClickListener(){
 
@@ -171,8 +174,8 @@ public class HistoryActivity extends AppCompatActivity{
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(getApplicationContext(), RecommandMapActivity.class);
-                    intent.putExtra("name",restName);
-                    intent.putExtra("address", location);
+                    intent.putExtra("name",nam);
+                    intent.putExtra("address", loc);
 
                     startActivity(intent);
                 }

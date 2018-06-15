@@ -48,6 +48,7 @@ public class MemoActivity extends AppCompatActivity {
                 isDel = true;
                 btnDel.setImageResource(R.drawable.check);
 
+
             }
         });
 
@@ -69,6 +70,8 @@ public class MemoActivity extends AppCompatActivity {
                     adapter.notifyDataSetChanged();
                     isDel = false;
                     btnDel.setImageResource(R.drawable.trash);
+                    Intent in = new Intent(getApplicationContext(),MemoActivity.class);
+                    startActivity(in);
 
                 }
 
@@ -100,17 +103,6 @@ public class MemoActivity extends AppCompatActivity {
 
     private int loadMemoListData() {
 
-       /* MemoListItem aItem = new MemoListItem("1", "2013-06-10 10:20","누들아한타이",
-                "맛있는 곳!",null,4
-                );
-
-        Log.d("memolist", "first memo made, go adapter to add the item ");
-
-        adapter.addItem(aItem);
-
-        adapter.notifyDataSetChanged();
-
-*/
 
         int recordCount = -1;
 
